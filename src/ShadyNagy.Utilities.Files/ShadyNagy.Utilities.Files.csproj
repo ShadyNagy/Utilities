@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+
+    <TargetFrameworks>netstandard2.0;net452</TargetFrameworks>
+    <PackageId>ShadyNagy.Utilities.Files</PackageId>
+    <Title>ShadyNagy.Utilities.Files</Title>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Shady Nagy (@ShadyNagy)</Authors>
+    <Company>ShadyNagy.com</Company>
+    <PackageProjectUrl>https://github.com/ShadyNagy/Utilities</PackageProjectUrl>
+    <Description>Classes to help create and send Files.</Description>
+    <Summary>Classes to help create and send Files.</Summary>
+    <RepositoryUrl>https://github.com/ShadyNagy/Utilities</RepositoryUrl>
+    <PackageTags>Files,utilities</PackageTags>
+    <PackageIcon>icon.png</PackageIcon>
+    <Version>1.0.0</Version>
+    <PackageReleaseNotes>Start of the project</PackageReleaseNotes>
+    <AssemblyName>ShadyNagy.Utilities.Files</AssemblyName>
+    <Features>strict</Features>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Copyright>Shady Nagy</Copyright>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-*" PrivateAssets="All" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.8.0.18411" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net452' ">
+    <PackageReference Include="System.Linq" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
+  </ItemGroup>
+
+</Project>
