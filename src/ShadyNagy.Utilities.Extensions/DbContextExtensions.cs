@@ -51,6 +51,12 @@ namespace ShadyNagy.Utilities.Extensions
             return entityMetadata.KeyProperties.Select(p => p.Name).ToArray();
         }
 
+        public static System.Type[] GetKeyTypes<TEntity>(this System.Data.Entity.DbContext context)
+            where TEntity : class
+        {
+            return context.GetKeyTypes(typeof(TEntity));
+        }
+
         public static System.Type[] GetKeyTypes(this System.Data.Entity.DbContext context, System.Type entityType)
         {
             var metadata = ((System.Data.Entity.Infrastructure.IObjectContextAdapter)context).ObjectContext.MetadataWorkspace;
