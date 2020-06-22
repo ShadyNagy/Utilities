@@ -18,6 +18,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShadyNagy.Utilities.Extensi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShadyNagy.Utilities.Files", "src\ShadyNagy.Utilities.Files\ShadyNagy.Utilities.Files.csproj", "{6C538ECA-26C9-438A-AE7D-323C5E9CAE6B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShadyNagy.Utilities.DesignPatterns", "src\ShadyNagy.Utilities.DesignPatterns\ShadyNagy.Utilities.DesignPatterns.csproj", "{6035335C-C483-45EA-B369-CA84012EF24A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShadyNagy.Utilities.Api", "src\ShadyNagy.Utilities.Api\ShadyNagy.Utilities.Api.csproj", "{58145ADC-74FD-4A1E-9AF5-13430106539A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +40,14 @@ Global
 		{6C538ECA-26C9-438A-AE7D-323C5E9CAE6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C538ECA-26C9-438A-AE7D-323C5E9CAE6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C538ECA-26C9-438A-AE7D-323C5E9CAE6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6035335C-C483-45EA-B369-CA84012EF24A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6035335C-C483-45EA-B369-CA84012EF24A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6035335C-C483-45EA-B369-CA84012EF24A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6035335C-C483-45EA-B369-CA84012EF24A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58145ADC-74FD-4A1E-9AF5-13430106539A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58145ADC-74FD-4A1E-9AF5-13430106539A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58145ADC-74FD-4A1E-9AF5-13430106539A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58145ADC-74FD-4A1E-9AF5-13430106539A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +56,8 @@ Global
 		{CF996ED6-605A-4A74-B33C-40E2AE90AA7F} = {96947032-6B56-4CDC-BEB9-8507A9A0C8A6}
 		{3AA7D2E1-7F08-489F-AAE3-7660331B3D19} = {96947032-6B56-4CDC-BEB9-8507A9A0C8A6}
 		{6C538ECA-26C9-438A-AE7D-323C5E9CAE6B} = {96947032-6B56-4CDC-BEB9-8507A9A0C8A6}
+		{6035335C-C483-45EA-B369-CA84012EF24A} = {96947032-6B56-4CDC-BEB9-8507A9A0C8A6}
+		{58145ADC-74FD-4A1E-9AF5-13430106539A} = {96947032-6B56-4CDC-BEB9-8507A9A0C8A6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B333D00F-148F-41BA-8EBA-E3AA15E3B1F2}
