@@ -14,8 +14,8 @@
     <RepositoryUrl>https://github.com/ShadyNagy/Utilities</RepositoryUrl>
     <PackageTags>extension,extensions,utilities</PackageTags>
     <PackageIcon>icon.png</PackageIcon>
-    <Version>1.0.1</Version>
-    <PackageReleaseNotes>Added GetKeyNames in DbContextExtensions</PackageReleaseNotes>
+    <Version>1.0.3</Version>
+    <PackageReleaseNotes>Added GetKeyTypes in DbContextExtensions</PackageReleaseNotes>
     <AssemblyName>ShadyNagy.Utilities.Extensions</AssemblyName>
     <Features>strict</Features>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
