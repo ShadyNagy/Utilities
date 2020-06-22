@@ -41,11 +41,11 @@ namespace ShadyNagy.Utilities.Extensions
             var metadata = ((System.Data.Entity.Infrastructure.IObjectContextAdapter)context).ObjectContext.MetadataWorkspace;
  
             // Get the mapping between CLR types and metadata OSpace
-            var objectItemCollection = ((System.Data.Entity.Core.Metadata.Edm.ObjectItemCollection)metadata.GetItemCollection(System.Data.Metadata.Edm.DataSpace.OSpace));
+            var objectItemCollection = ((System.Data.Entity.Core.Metadata.Edm.ObjectItemCollection)metadata.GetItemCollection(System.Data.Entity.Core.Metadata.Edm.DataSpace.OSpace));
  
             // Get metadata for given CLR type
             var entityMetadata = metadata
-                    .GetItems<System.Data.Metadata.Edm.EntityType>(System.Data.Metadata.Edm.DataSpace.OSpace)
+                    .GetItems<System.Data.Entity.Core.Metadata.Edm.EntityType>(System.Data.Entity.Core.Metadata.Edm.DataSpace.OSpace)
                     .Single(e => objectItemCollection.GetClrType(e) == entityType);
  
             return entityMetadata.KeyProperties.Select(p => p.Name).ToArray();
