@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Reflection;
+using ShadyNagy.Utilities.Api.DTOs;
 using ShadyNagy.Utilities.DesignPatterns.Specification;
+using ShadyNagy.Utilities.Extensions;
+using ShadyNagy.Utilities.Extensions.Object;
 
 namespace ShadyNagy.Utilities.DesignPatterns.Repositories
 {
@@ -12,15 +13,18 @@ namespace ShadyNagy.Utilities.DesignPatterns.Repositories
         where TModel : class
     {
         #region Fields
-
-        protected DbContext DbContext { get; set; }
+#if NETFRAMEWORK
+        protected System.Data.Entity.DbContext DbContext { get; set; }
+#else
+        protected Microsoft.EntityFrameworkCore.DbContext DbContext { get; set; }
+#endif
         private string ConnectionString { get; set; }
         private int PageSize { get; set; }
         private Guid? UserId { get; set; }
 
-        #endregion
+#endregion
 
-        #region Constructors
+#region Constructors
 
         protected BaseRepository(string connectionString, Guid? userId = null, int pageSize = 25)
         {
@@ -29,19 +33,25 @@ namespace ShadyNagy.Utilities.DesignPatterns.Repositories
             UserId = userId;
         }
 
-        #endregion
+#endregion
 
-        #region Actions
+#region Actions
 
         public string GetConnectionString()
         {
             return ConnectionString;
         }
-        public DbContext GetDbContext()
+#if NETFRAMEWORK
+        public System.Data.Entity.DbContext GetDbContext()
         {
             return DbContext;
         }
-
+#else
+        public Microsoft.EntityFrameworkCore.DbContext GetDbContext()
+        {
+            return DbContext;
+        }
+#endif
         public int GetCount(Specification<TModel, bool> specification)
         {
       
@@ -131,13 +141,13 @@ namespace ShadyNagy.Utilities.DesignPatterns.Repositories
             var primaryType = GetPrimaryKeyType<TModel>();
             if (typeof(Guid) == primaryType)
             {
-                return DbContext.Find<TModel>(new Guid(id));
+                return DbContext.Set<TModel>().Find(new Guid(id));
             }else if (typeof(string) == primaryType)
             {
-                return DbContext.Find<TModel>(id);
+                return DbContext.Set<TModel>().Find(id);
             }else if (typeof(int) == primaryType)
             {
-                return DbContext.Find<TModel>(int.Parse(id));
+                return DbContext.Set<TModel>().Find(int.Parse(id));
             }
 
             return null;
@@ -164,9 +174,15 @@ namespace ShadyNagy.Utilities.DesignPatterns.Repositories
                 entity.GetType().GetProperty("IsSystem")?.SetValue(entity, false);
             }
 
+#if NETFRAMEWORK
+            return DbContext
+                .Set<TModel>()
+                .Add(entity);
+#else
             return DbContext
                 .Add(entity)
                 .Entity;
+#endif
         }
 
         public virtual TModel Update(TModel entity, TModel oldEntity)
@@ -208,7 +224,11 @@ namespace ShadyNagy.Utilities.DesignPatterns.Repositories
 
                     if (!HasTranslation(newTranslationsList, translation, translationIdPropertyName))
                     {
+#if NETFRAMEWORK
+                        DbContext.Entry(translation).State = System.Data.Entity.EntityState.Deleted;
+#else
                         DbContext.Remove(translation);
+#endif
                     }
                 }
 
@@ -216,7 +236,11 @@ namespace ShadyNagy.Utilities.DesignPatterns.Repositories
                 {
                     if (IsNew(translation, translationIdPropertyName))
                     {
+#if NETFRAMEWORK
+                        DbContext.Entry(translation).State = System.Data.Entity.EntityState.Added;
+#else
                         DbContext.Add(translation);
+#endif
                     }
                     else
                     {
@@ -258,11 +282,15 @@ namespace ShadyNagy.Utilities.DesignPatterns.Repositories
             {
                 foreach (var translation in translations)
                 {
+#if NETFRAMEWORK
+                    DbContext.Entry(translation).State = System.Data.Entity.EntityState.Deleted;
+#else
                     DbContext.Remove(translation);
+#endif
                 }
             }
 
-            DbContext.Remove(entity);
+            DbContext.Set<TModel>().Remove(entity);
 
             return true;
         }
@@ -332,19 +360,30 @@ namespace ShadyNagy.Utilities.DesignPatterns.Repositories
             DbContext.SaveChanges();
         }
 
-        private Type GetPrimaryKeyType<TTModel>()
+        private Type GetPrimaryKeyType<TTModel>() 
+            where TTModel : class
         {
-            return DbContext.Model.FindEntityType(typeof(TTModel)).FindPrimaryKey().Properties
+#if NETFRAMEWORK
+            return DbContext.GetKeyTypes<TTModel>().Single();
+#else
+            return DbContext.Model.FindEntityType(nameof(TTModel)).FindPrimaryKey().Properties
                 .Select(x => x.ClrType).Single();
+#endif
         }
 
         private string GetPrimaryKeyName<TTModel>()
+            where TTModel : class
         {
-            return DbContext.Model.FindEntityType(typeof(TTModel)).FindPrimaryKey().Properties
+#if NETFRAMEWORK
+            return DbContext.GetKeyNames<TTModel>().Single();
+#else
+            return DbContext.Model.FindEntityType(nameof(TTModel)).FindPrimaryKey().Properties
                 .Select(x => x.Name).Single();
+#endif
         }
 
         private object GetValueByPropertyName<TTModel>(object entity)
+            where TTModel : class
         {
             var keyName = GetPrimaryKeyName<TTModel>();
 
@@ -396,7 +435,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Repositories
         }
 
 
-        #endregion
+#endregion
 
     }
 }

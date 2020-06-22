@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using ShadyNagy.Utilities.Api.DTOs;
 using ShadyNagy.Utilities.DesignPatterns.Specification;
-using Microsoft.EntityFrameworkCore;
 
 namespace ShadyNagy.Utilities.DesignPatterns.Repositories
 {
@@ -20,7 +18,11 @@ namespace ShadyNagy.Utilities.DesignPatterns.Repositories
         bool Delete(IReadOnlyList<string> ids);
         void SaveChanges();
         string GetConnectionString();
-        DbContext GetDbContext();
+#if NETFRAMEWORK
+         System.Data.Entity.DbContext GetDbContext();
+#else
+        Microsoft.EntityFrameworkCore.DbContext GetDbContext();
+#endif
         int GetCount(Specification<TModel, bool> specification);
         void SetUserId(Guid? userId);
         void Reset();
