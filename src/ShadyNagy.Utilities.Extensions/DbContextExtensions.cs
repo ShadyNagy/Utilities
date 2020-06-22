@@ -38,10 +38,10 @@ namespace ShadyNagy.Utilities.Extensions
  
         public static string[] GetKeyNames(this System.Data.Entity.DbContext context, System.Type entityType)
         {
-            var metadata = ((IObjectContextAdapter)context).ObjectContext.MetadataWorkspace;
+            var metadata = ((System.Data.Entity.Infrastructure.IObjectContextAdapter)context).ObjectContext.MetadataWorkspace;
  
             // Get the mapping between CLR types and metadata OSpace
-            var objectItemCollection = ((ObjectItemCollection)metadata.GetItemCollection(DataSpace.OSpace));
+            var objectItemCollection = ((System.Data.Entity.Core.Metadata.Edm.ObjectItemCollection)metadata.GetItemCollection(DataSpace.OSpace));
  
             // Get metadata for given CLR type
             var entityMetadata = metadata
