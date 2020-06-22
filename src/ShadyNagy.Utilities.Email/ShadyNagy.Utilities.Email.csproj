@@ -14,8 +14,8 @@
     <RepositoryUrl>https://github.com/ShadyNagy/Utilities</RepositoryUrl>
     <PackageTags>email,utilities</PackageTags>
     <PackageIcon>icon.png</PackageIcon>
-    <Version>1.0.1</Version>
-    <PackageReleaseNotes>Init</PackageReleaseNotes>
+    <Version>1.0.2</Version>
+    <PackageReleaseNotes>Start of the project</PackageReleaseNotes>
     <AssemblyName>ShadyNagy.Utilities.Email</AssemblyName>
     <Features>strict</Features>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
