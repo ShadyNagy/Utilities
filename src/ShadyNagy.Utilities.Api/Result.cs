@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ShadyNagy.Utilities.Api
+﻿namespace ShadyNagy.Utilities.Api
 {
 
 

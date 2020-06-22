@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ShadyNagy.Utilities.Api.DTOs
+﻿namespace ShadyNagy.Utilities.Api.DTOs
 {
     public class SortModel
     {
