@@ -6,6 +6,7 @@ namespace ShadyNagy.Utilities.Email
 {
     public class Email
     {
+
         private string FromName { get; set; }
         private string FromAddress { get; set; }
         private List<string> ToAddresses { get; set; }

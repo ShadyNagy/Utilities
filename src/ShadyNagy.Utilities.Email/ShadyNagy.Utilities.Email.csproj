@@ -12,14 +12,15 @@
     <Description>Classes to help create and send email.</Description>
     <Summary>Classes to help create and send email.</Summary>
     <RepositoryUrl>https://github.com/ShadyNagy/Utilities</RepositoryUrl>
-    <PackageTags>email</PackageTags>
+    <PackageTags>email,utilities</PackageTags>
     <PackageIcon>icon.png</PackageIcon>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <PackageReleaseNotes>Init</PackageReleaseNotes>
     <AssemblyName>ShadyNagy.Utilities.Email</AssemblyName>
     <Features>strict</Features>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Copyright>Shady Nagy</Copyright>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Debug'">
