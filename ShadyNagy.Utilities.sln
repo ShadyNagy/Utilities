@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution", "Solution", "{E3
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShadyNagy.Utilities.Extensions", "src\ShadyNagy.Utilities.Extensions\ShadyNagy.Utilities.Extensions.csproj", "{3AA7D2E1-7F08-489F-AAE3-7660331B3D19}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,12 +26,17 @@ Global
 		{CF996ED6-605A-4A74-B33C-40E2AE90AA7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF996ED6-605A-4A74-B33C-40E2AE90AA7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF996ED6-605A-4A74-B33C-40E2AE90AA7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AA7D2E1-7F08-489F-AAE3-7660331B3D19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AA7D2E1-7F08-489F-AAE3-7660331B3D19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AA7D2E1-7F08-489F-AAE3-7660331B3D19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AA7D2E1-7F08-489F-AAE3-7660331B3D19}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{CF996ED6-605A-4A74-B33C-40E2AE90AA7F} = {96947032-6B56-4CDC-BEB9-8507A9A0C8A6}
+		{3AA7D2E1-7F08-489F-AAE3-7660331B3D19} = {96947032-6B56-4CDC-BEB9-8507A9A0C8A6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B333D00F-148F-41BA-8EBA-E3AA15E3B1F2}
