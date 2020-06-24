@@ -1,8 +1,3 @@
-
-# Utilities
-
-Utilities to help in deveploment
-
 <p align="center">
     <a href="https://www.nuget.org/packages/ShadyNagy.Utilities.Api" alt="NuGet">
         <img src="https://img.shields.io/nuget/v/ShadyNagy.Utilities.Api" />
@@ -15,6 +10,12 @@ Utilities to help in deveploment
     </a>
     
 </p>
+
+
+# Utilities
+
+Utilities to help in deveploment
+
 
 ### Sub-packages
 
