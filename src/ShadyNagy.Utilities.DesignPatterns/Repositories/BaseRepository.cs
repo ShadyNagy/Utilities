@@ -2,6 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+#if NETSTANDARD2_0
+using Microsoft.EntityFrameworkCore;
+#endif
 using ShadyNagy.Utilities.Api.DTOs;
 using ShadyNagy.Utilities.DesignPatterns.Specification;
 using ShadyNagy.Utilities.Extensions;
@@ -12,7 +15,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Repositories
     public abstract class BaseRepository<TModel>: IRepository<TModel> 
         where TModel : class
     {
-        #region Fields
+#region Fields
 #if NETFRAMEWORK
         protected System.Data.Entity.DbContext DbContext { get; set; }
 #else
@@ -366,7 +369,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Repositories
 #if NETFRAMEWORK
             return DbContext.GetKeyTypes<TTModel>().Single();
 #else
-            return DbContext.Model.FindEntityType(nameof(TTModel)).FindPrimaryKey().Properties
+            return DbContext.Model.FindEntityType(typeof(TTModel)).FindPrimaryKey().Properties
                 .Select(x => x.ClrType).Single();
 #endif
         }
@@ -377,7 +380,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Repositories
 #if NETFRAMEWORK
             return DbContext.GetKeyNames<TTModel>().Single();
 #else
-            return DbContext.Model.FindEntityType(nameof(TTModel)).FindPrimaryKey().Properties
+            return DbContext.Model.FindEntityType(typeof(TTModel)).FindPrimaryKey().Properties
                 .Select(x => x.Name).Single();
 #endif
         }
