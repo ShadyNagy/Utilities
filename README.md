@@ -5,7 +5,7 @@
     <a href="https://www.nuget.org/packages/ShadyNagy.Utilities.Api" alt="NuGet">
         <img src="https://img.shields.io/nuget/dt/ShadyNagy.Utilities.Api" />
     </a>
-    <a href="https://github.com/shadynagy/Utilities/workflows/publish%20ShadyNagy.Utilities.Api%20to%20nuget/badge.svg" alt="Contributors">
+    <a href="https://github.com/shadynagy/Utilities/workflows/publish%20ShadyNagy.Utilities%20to%20nuget/badge.svg" alt="Contributors">
         <img src="https://github.com/shadynagy/Utilities/workflows/publish%20ShadyNagy.Utilities.Api%20to%20nuget/badge.svg" />
     </a>
     <a href="https://github.com/ShadyNagy/Utilities/graphs/contributors" alt="Contributors">
