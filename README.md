@@ -8,6 +8,12 @@
     <a href="https://github.com/ShadyNagy/Utilities/graphs/contributors" alt="Contributors">
         <img src="https://img.shields.io/github/contributors/ShadyNagy/Utilities" />
     </a>
+    <a href="https://github.com/ardalis/SmartEnum/workflows/publish%20ShadyNagy.Utilities.Api%20to%20nuget/badge.svg" alt="Contributors">
+        <img src="https://github.com/ardalis/SmartEnum/workflows/publish%20ShadyNagy.Utilities.Api%20to%20nuget/badge.svg" />
+    </a>
+    <a href="https://github.com/ShadyNagy/Utilities/graphs/contributors" alt="Contributors">
+        <img src="https://img.shields.io/github/contributors/ShadyNagy/Utilities" />
+    </a>
     
 </p>
 
