@@ -14,7 +14,7 @@
 
 ### Sub-packages
 
-<p align="center">   
+<p align="left">   
 ShadyNagy.Utilities.Api: 
     <a href="https://www.nuget.org/packages/ShadyNagy.Utilities.Api" alt="NuGet">
         <img src="https://img.shields.io/nuget/v/ShadyNagy.Utilities.Api" />
