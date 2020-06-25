@@ -11,7 +11,7 @@
     <a href="https://github.com/ShadyNagy/Utilities/graphs/contributors" alt="Contributors">
         <img src="https://img.shields.io/github/contributors/ShadyNagy/Utilities" />
     </a>
-    <a href="https://github.com/ShadyNagy/Utilities/blob/master/LICENSE" alt="license">
+    <a href="https://github.com/license/ShadyNagy/Utilities" alt="license">
         <img src="https://img.shields.io/badge/License-MIT-blue.svg" />
     </a>
 </p>
