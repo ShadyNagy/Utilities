@@ -1,4 +1,5 @@
 name: publish ShadyNagy.Utilities.Crypto to nuget
+
 on:
   push:
     branches:

@@ -6,6 +6,7 @@ namespace ShadyNagy.Utilities.Crypto.Hash
 {
     public class Sha1
     {
+
         public static string HashToString(string input, string secret = null)
         {
             using (var sha1 = new SHA1Managed())
