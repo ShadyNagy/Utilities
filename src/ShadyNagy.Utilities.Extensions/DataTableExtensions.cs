@@ -1,4 +1,6 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 
 namespace ShadyNagy.Utilities.Extensions
 {
@@ -14,6 +16,37 @@ namespace ShadyNagy.Utilities.Extensions
 
             var columns = table.Columns;
             return columns.Contains(columnName);
+        }
+
+        public static IEnumerable<DataColumn> GetColumns(this DataTable table)
+        {
+            if (table == null)
+            {
+                return new List<DataColumn>();
+            }
+
+            return table
+                .Columns
+                .Cast<DataColumn>()
+                .ToList();
+        }
+
+        public static List<string> GetColumnsNames(this DataTable table)
+        {
+            if (table == null)
+            {
+                return new List<string>();
+            }
+
+            var columns = table.GetColumns();
+            if (columns == null)
+            {
+                return new List<string>();
+            }
+
+            return columns
+                .Select(x => x.Caption)
+                .ToList();
         }
     }
 }
