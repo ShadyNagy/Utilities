@@ -32,6 +32,22 @@ namespace ShadyNagy.Utilities.Extensions
                     .Cast<DataColumn>()
                     .ToList();
 
+        public static IEnumerable<DataRow> GetRows(this DataTableCollection tables, string tableName) =>
+            tables == null ? new List<DataRow>() :
+                tables
+                    .GetTable(tableName)
+                    .Rows
+                    .Cast<DataRow>()
+                    .ToList();
+
+        public static IEnumerable<DataRow> GetRows(this DataTableCollection tables, int tableNumber) =>
+            tables == null ? new List<DataRow>() :
+                tables
+                    .GetTable(tableNumber)
+                    .Rows
+                    .Cast<DataRow>()
+                    .ToList();
+
         public static IEnumerable<string> GetColumnsNames(this DataTableCollection tables, string tableName) =>
             tables
                 .GetColumns(tableName)
