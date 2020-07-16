@@ -59,5 +59,33 @@ namespace ShadyNagy.Utilities.Extensions
                 .GetColumns(tableNumber)
                 .Select(x => x.Caption)
                 .ToList();
+
+        public static int GetColumnNumber(this DataTableCollection tables, string tableName, string columnName)
+        {
+            var column = tables
+                .GetColumns(tableName)
+                .FirstOrDefault(x => x.Caption.ToLower() == columnName.ToLower());
+
+            if (column == null)
+            {
+                return - 1;
+            }
+
+            return column.Ordinal;
+        }
+
+        public static int GetColumnNumber(this DataTableCollection tables, int tableNumber, string columnName)
+        {
+            var column = tables
+                .GetColumns(tableNumber)
+                .FirstOrDefault(x => x.Caption.ToLower() == columnName.ToLower());
+
+            if (column == null)
+            {
+                return -1;
+            }
+
+            return column.Ordinal;
+        }
     }
 }
