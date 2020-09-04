@@ -195,6 +195,18 @@ namespace ShadyNagy.Utilities.DesignPatterns.Repositories
                 return null;
             }
 
+            if (UserId != null && entity.GetType().GetProperty("CreatedBy") != null)
+            {
+                entity.GetType().GetProperty("CreatedBy")?.SetValue(entity,
+                    oldEntity.GetType().GetProperty("CreatedBy")?.GetValue(oldEntity));
+            }
+
+            if (entity.GetType().GetProperty("CreatedDate") != null)
+            {
+                entity.GetType().GetProperty("CreatedDate")?.SetValue(entity,
+                    oldEntity.GetType().GetProperty("CreatedDate")?.GetValue(oldEntity));
+            }
+
             if (UserId != null && entity.GetType().GetProperty("ModifiedBy") != null)
             {
                 entity.GetType().GetProperty("ModifiedBy")?.SetValue(entity, (Guid)UserId);
