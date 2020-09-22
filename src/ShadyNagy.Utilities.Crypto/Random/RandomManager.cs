@@ -8,7 +8,7 @@ namespace ShadyNagy.Utilities.Crypto.Random
     {
         public static string CreateRandomString()
         {
-            return Sha1.HashToString(DateTime.Now.ToString(CultureInfo.InvariantCulture));
+            return Sha1.HashToString(DateTime.Now.Ticks.ToString(CultureInfo.InvariantCulture));
         }
     }
 }
