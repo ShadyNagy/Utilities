@@ -15,7 +15,7 @@
     <PackageTags>Design Patterns,Service, Repository, utilities</PackageTags>
     <PackageIcon>icon.png</PackageIcon>
     <Version>1.0.3</Version>
-    <PackageReleaseNotes>Update Random</PackageReleaseNotes>
+    <PackageReleaseNotes>Fix Update repo</PackageReleaseNotes>
     <AssemblyName>ShadyNagy.Utilities.DesignPatterns</AssemblyName>
     <Features>strict</Features>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
