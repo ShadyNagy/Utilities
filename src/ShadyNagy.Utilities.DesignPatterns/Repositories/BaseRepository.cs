@@ -163,7 +163,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Repositories
                 return null;
             }
 
-            DbContext.Set<TModel>().AsNoTracking();
+            DbContext.Reset();
 
             var primaryType = GetPrimaryKeyType<TModel>();
             if (typeof(Guid) == primaryType)
