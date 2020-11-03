@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 #if NETSTANDARD2_0
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Proxies;
 #endif
 using ShadyNagy.Utilities.Api.DTOs;
 using ShadyNagy.Utilities.DesignPatterns.Specification;
@@ -165,6 +166,8 @@ namespace ShadyNagy.Utilities.DesignPatterns.Repositories
 
             DbContext.Reset();
 
+
+
             var primaryType = GetPrimaryKeyType<TModel>();
             var primaryKeyName = GetPrimaryKeyName<TModel>();
 
@@ -215,9 +218,9 @@ namespace ShadyNagy.Utilities.DesignPatterns.Repositories
                 .Set<TModel>()
                 .Add(entity);
 #else
-            return DbContext
-                .Add(entity)
-                .Entity;
+            var toCreate = DbContext.CreateProxy<TModel>();
+            DbContext.Entry(toCreate).CurrentValues.SetValues(entity);
+            return DbContext.Add(toCreate).Entity;
 #endif
         }
 
