@@ -164,6 +164,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Repositories
             }
 
             DbContext.Reset();
+            DbContext.Set<TModel>().Load();
 
             var primaryType = GetPrimaryKeyType<TModel>();
             if (typeof(Guid) == primaryType)
