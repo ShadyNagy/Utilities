@@ -163,19 +163,20 @@ namespace ShadyNagy.Utilities.DesignPatterns.Repositories
                 return null;
             }
 
+            DbContext.Set<TModel>().AsNoTracking();
+
             var primaryType = GetPrimaryKeyType<TModel>();
-            var primaryName = GetPrimaryKeyName<TModel>();
             if (typeof(Guid) == primaryType)
             {
-                return DbContext.Set<TModel>().FirstOrDefault(x => ((Guid)x.GetPropertyValue(primaryName)).ToString() == id);
+                return DbContext.Set<TModel>().Find(new Guid(id));
             }
             else if (typeof(string) == primaryType)
             {
-                return DbContext.Set<TModel>().FirstOrDefault(x => ((string)x.GetPropertyValue(primaryName)) == id);
+                return DbContext.Set<TModel>().Find(id);
             }
             else if (typeof(int) == primaryType)
             {
-                return DbContext.Set<TModel>().FirstOrDefault(x => ((int)x.GetPropertyValue(primaryName)).ToString() == id);
+                return DbContext.Set<TModel>().Find(int.Parse(id));
             }
 
             return null;
