@@ -156,6 +156,31 @@ namespace ShadyNagy.Utilities.DesignPatterns.Repositories
             return null;
         }
 
+        public virtual TModel GetByIdWithoutCache(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return null;
+            }
+
+            var primaryType = GetPrimaryKeyType<TModel>();
+            var primaryName = GetPrimaryKeyName<TModel>();
+            if (typeof(Guid) == primaryType)
+            {
+                return DbContext.Set<TModel>().FirstOrDefault(x => x.GetPropertyValue(primaryName).ToString() == id);
+            }
+            else if (typeof(string) == primaryType)
+            {
+                return DbContext.Set<TModel>().FirstOrDefault(x => x.GetPropertyValue(primaryName).ToString() == id);
+            }
+            else if (typeof(int) == primaryType)
+            {
+                return DbContext.Set<TModel>().FirstOrDefault(x => x.GetPropertyValue(primaryName).ToString() == id);
+            }
+
+            return null;
+        }
+
         public virtual TModel Add(TModel entity)
         {
             if (entity == null)

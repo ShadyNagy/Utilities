@@ -12,6 +12,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Repositories
         IReadOnlyList<TModel> GetAllByFilterAndPage(Specification<TModel, bool> specification,
             Specification<TModel, object> orderSpecification = null, SortOrder? sortOrder = null, int? pageNumber = 0);
         TModel GetById(string id);
+        TModel GetByIdWithoutCache(string id);
         TModel Add(TModel entity);
         TModel Update(TModel entity, TModel oldEntity);
         bool Delete(string id);
