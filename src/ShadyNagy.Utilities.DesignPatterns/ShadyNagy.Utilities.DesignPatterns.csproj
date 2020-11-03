@@ -14,7 +14,7 @@
     <RepositoryUrl>https://github.com/ShadyNagy/Utilities</RepositoryUrl>
     <PackageTags>Design Patterns,Service, Repository, utilities</PackageTags>
     <PackageIcon>icon.png</PackageIcon>
-    <Version>1.0.11</Version>
+    <Version>1.0.12</Version>
     <PackageReleaseNotes>Added GetByIdWithoutCache.</PackageReleaseNotes>
     <AssemblyName>ShadyNagy.Utilities.DesignPatterns</AssemblyName>
     <Features>strict</Features>

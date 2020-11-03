@@ -218,9 +218,12 @@ namespace ShadyNagy.Utilities.DesignPatterns.Repositories
                 .Set<TModel>()
                 .Add(entity);
 #else
-            var toCreate = DbContext.CreateProxy<TModel>();
-            DbContext.Entry(toCreate).CurrentValues.SetValues(entity);
-            return DbContext.Add(toCreate).Entity;
+            //var toCreate = DbContext.CreateProxy<TModel>();
+            //DbContext.Entry(toCreate).CurrentValues.SetValues(entity);
+            //return DbContext.Add(toCreate).Entity;
+            return DbContext
+                .Add(entity)
+                .Entity;
 #endif
         }
 
