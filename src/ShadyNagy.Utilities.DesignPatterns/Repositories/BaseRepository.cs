@@ -165,24 +165,37 @@ namespace ShadyNagy.Utilities.DesignPatterns.Repositories
 
             DbContext.Reset();
 
-#if NETFRAMEWORK
-#else
-            DbContext.Set<TModel>().Load();
-#endif
-
-
             var primaryType = GetPrimaryKeyType<TModel>();
             if (typeof(Guid) == primaryType)
             {
-                return DbContext.Set<TModel>().Find(new Guid(id));
+                var entity = DbContext.Set<TModel>().Find(new Guid(id));
+
+                #if NETFRAMEWORK
+                #else
+                                DbContext.Entry(entity).State = EntityState.Detached;
+                #endif
+
+                return entity;
             }
             else if (typeof(string) == primaryType)
             {
-                return DbContext.Set<TModel>().Find(id);
+                var entity = DbContext.Set<TModel>().Find(id);
+#if NETFRAMEWORK
+#else
+                DbContext.Entry(entity).State = EntityState.Detached;
+#endif
+
+                return entity;
             }
             else if (typeof(int) == primaryType)
             {
-                return DbContext.Set<TModel>().Find(int.Parse(id));
+                var entity = DbContext.Set<TModel>().Find(int.Parse(id));
+#if NETFRAMEWORK
+#else
+                DbContext.Entry(entity).State = EntityState.Detached;
+#endif
+
+                return entity;
             }
 
             return null;
