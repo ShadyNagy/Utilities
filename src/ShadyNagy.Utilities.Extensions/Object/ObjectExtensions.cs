@@ -179,6 +179,11 @@ namespace ShadyNagy.Utilities.Extensions.Object
             return propertyList;
         }
 
+        public static bool HasProperty(this object obj, string propertyName)
+        {
+            return obj.GetType().GetProperty(propertyName) != null;
+        }
+
         public static object GetPropertyValue(this object obj, string objectPropertyName)
         {
             if (objectPropertyName == null)
