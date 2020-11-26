@@ -14,8 +14,8 @@
     <RepositoryUrl>https://github.com/ShadyNagy/Utilities</RepositoryUrl>
     <PackageTags>extension,extensions,utilities</PackageTags>
     <PackageIcon>icon.png</PackageIcon>
-    <Version>1.0.9</Version>
-    <PackageReleaseNotes>Added HasProperty in Object extensions.</PackageReleaseNotes>
+    <Version>1.0.10</Version>
+    <PackageReleaseNotes>Added Expression Extensions.</PackageReleaseNotes>
     <AssemblyName>ShadyNagy.Utilities.Extensions</AssemblyName>
     <Features>strict</Features>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
