@@ -12,10 +12,10 @@
     <Description>Classes for Design Patterns help.</Description>
     <Summary>Classes for Design Patterns help.</Summary>
     <RepositoryUrl>https://github.com/ShadyNagy/Utilities</RepositoryUrl>
-    <PackageTags>Design Patterns,Service, Repository, utilities</PackageTags>
+    <PackageTags>Design Patterns,Service, Repository, utilities, Dynamic Filters, Dynamic</PackageTags>
     <PackageIcon>icon.png</PackageIcon>
-    <Version>1.0.12</Version>
-    <PackageReleaseNotes>Added GetByIdWithoutCache.</PackageReleaseNotes>
+    <Version>1.1.0</Version>
+    <PackageReleaseNotes>Added Dynamic Specification.</PackageReleaseNotes>
     <AssemblyName>ShadyNagy.Utilities.DesignPatterns</AssemblyName>
     <Features>strict</Features>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -34,7 +34,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-*" PrivateAssets="All" />
     <PackageReference Include="ShadyNagy.Utilities.Api" Version="1.0.0" />
-    <PackageReference Include="ShadyNagy.Utilities.Extensions" Version="1.0.4" />
+    <PackageReference Include="ShadyNagy.Utilities.Extensions" Version="1.0.10" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.8.0.18411" PrivateAssets="All" />
   </ItemGroup>
 
