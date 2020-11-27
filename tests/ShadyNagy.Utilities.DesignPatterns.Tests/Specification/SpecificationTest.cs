@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using ShadyNagy.Utilities.Api.DTOs;
+using ShadyNagy.Utilities.DesignPatterns.Specification;
 using ShadyNagy.Utilities.DesignPatterns.Tests.Models;
-using ShadyNagy.Utilities.DesignPatterns.Tests.Specification;
 using Xunit;
 
 namespace ShadyNagy.Utilities.DesignPatterns.Tests

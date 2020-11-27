@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using ShadyNagy.Utilities.Api.DTOs;
-using ShadyNagy.Utilities.DesignPatterns.Specification;
 
-namespace ShadyNagy.Utilities.DesignPatterns.Tests.Specification
+namespace ShadyNagy.Utilities.DesignPatterns.Specification
 {
     public class FilterSpecification<TModel> : Specification<TModel, bool>
     {
@@ -21,9 +20,9 @@ namespace ShadyNagy.Utilities.DesignPatterns.Tests.Specification
             {
                 foreach (var condition in filter.Conditions)
                 {
-                    var filterType = (FilterOperator) (int) condition.ConditionType;
+                    var filterType = (FilterOperator)(int)condition.ConditionType;
                     var specToAdd = new FilterSpecification<TModel>(filter.FieldName, filterType, condition.Value);
-                    
+
                     if (condition.OperatorWithNext == Operator.And)
                     {
                         spec = spec.And(specToAdd);
