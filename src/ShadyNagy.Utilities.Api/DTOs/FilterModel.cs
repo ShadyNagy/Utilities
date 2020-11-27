@@ -36,7 +36,8 @@ namespace ShadyNagy.Utilities.Api.DTOs
         LessThanOrEqual,
         Contains,
         StartsWith,
-        EndsWith
+        EndsWith,
+        NotContains
     }
 
     public enum Operator
