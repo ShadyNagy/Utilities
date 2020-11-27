@@ -14,8 +14,8 @@
     <RepositoryUrl>https://github.com/ShadyNagy/Utilities</RepositoryUrl>
     <PackageTags>Api,utilities</PackageTags>
     <PackageIcon>icon.png</PackageIcon>
-    <Version>1.0.0</Version>
-    <PackageReleaseNotes>Start of the project</PackageReleaseNotes>
+    <Version>1.0.1</Version>
+    <PackageReleaseNotes>LookupGetRequest Page nullable</PackageReleaseNotes>
     <AssemblyName>ShadyNagy.Utilities.Api</AssemblyName>
     <Features>strict</Features>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
