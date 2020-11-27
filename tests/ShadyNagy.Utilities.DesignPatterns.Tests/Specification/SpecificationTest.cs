@@ -23,7 +23,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Tests
             filter.Conditions.Add(condition);
             filters.Add(filter);
 
-            var spec = FilterSpecification<Customer>.CreateFilterSpecifications(filters);
+            var spec = FilterSpecification<Customer>.Create(filters);
             var expression = spec.ToExpression();
 
             Assert.Equal("x.Name.Contains(\"s\")", expression.Body.ToString());
@@ -44,7 +44,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Tests
             filter.Conditions.Add(condition);
             filters.Add(filter);
 
-            var spec = FilterSpecification<Customer>.CreateFilterSpecifications(filters);
+            var spec = FilterSpecification<Customer>.Create(filters);
             var expression = spec.ToExpression();
 
             Assert.Equal("(x.Name == \"s\")", expression.Body.ToString());
@@ -65,7 +65,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Tests
             filter.Conditions.Add(condition);
             filters.Add(filter);
 
-            var spec = FilterSpecification<Customer>.CreateFilterSpecifications(filters);
+            var spec = FilterSpecification<Customer>.Create(filters);
             var expression = spec.ToExpression();
 
             Assert.Equal("(x.Name != \"s\")", expression.Body.ToString());
@@ -86,7 +86,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Tests
             filter.Conditions.Add(condition);
             filters.Add(filter);
 
-            var spec = FilterSpecification<Customer>.CreateFilterSpecifications(filters);
+            var spec = FilterSpecification<Customer>.Create(filters);
             var expression = spec.ToExpression();
 
             Assert.Equal("x.Name.EndsWith(\"s\")", expression.Body.ToString());
@@ -107,7 +107,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Tests
             filter.Conditions.Add(condition);
             filters.Add(filter);
 
-            var spec = FilterSpecification<Customer>.CreateFilterSpecifications(filters);
+            var spec = FilterSpecification<Customer>.Create(filters);
             var expression = spec.ToExpression();
 
             Assert.Equal("x.Name.StartsWith(\"s\")", expression.Body.ToString());
@@ -128,7 +128,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Tests
             filter.Conditions.Add(condition);
             filters.Add(filter);
 
-            var spec = FilterSpecification<Customer>.CreateFilterSpecifications(filters);
+            var spec = FilterSpecification<Customer>.Create(filters);
             var expression = spec.ToExpression();
 
             Assert.Equal("(x.Age > 5)", expression.Body.ToString());
@@ -149,7 +149,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Tests
             filter.Conditions.Add(condition);
             filters.Add(filter);
 
-            var spec = FilterSpecification<Customer>.CreateFilterSpecifications(filters);
+            var spec = FilterSpecification<Customer>.Create(filters);
             var expression = spec.ToExpression();
 
             Assert.Equal("(x.Age >= 5)", expression.Body.ToString());
@@ -170,7 +170,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Tests
             filter.Conditions.Add(condition);
             filters.Add(filter);
 
-            var spec = FilterSpecification<Customer>.CreateFilterSpecifications(filters);
+            var spec = FilterSpecification<Customer>.Create(filters);
             var expression = spec.ToExpression();
 
             Assert.Equal("(x.Age < 5)", expression.Body.ToString());
@@ -191,7 +191,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Tests
             filter.Conditions.Add(condition);
             filters.Add(filter);
 
-            var spec = FilterSpecification<Customer>.CreateFilterSpecifications(filters);
+            var spec = FilterSpecification<Customer>.Create(filters);
             var expression = spec.ToExpression();
 
             Assert.Equal("(x.Age <= 5)", expression.Body.ToString());
@@ -214,7 +214,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Tests
             filter.Conditions.Add(condition);
             filters.Add(filter);
 
-            var spec = FilterSpecification<Order>.CreateFilterSpecifications(filters);
+            var spec = FilterSpecification<Order>.Create(filters);
             var expression = spec.ToExpression();
 
             Assert.Equal("(x.Payment.Money <= 5)", expression.Body.ToString());
@@ -237,7 +237,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Tests
             filter.Conditions.Add(condition);
             filters.Add(filter);
 
-            var spec = FilterSpecification<Order>.CreateFilterSpecifications(filters);
+            var spec = FilterSpecification<Order>.Create(filters);
             var expression = spec.ToExpression();
 
             Assert.Equal("(x.Payment.Cost <= Convert(5, Decimal))", expression.Body.ToString());
@@ -260,7 +260,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Tests
             filter.Conditions.Add(condition);
             filters.Add(filter);
 
-            var spec = FilterSpecification<Customer>.CreateFilterSpecifications(filters);
+            var spec = FilterSpecification<Customer>.Create(filters);
             var expression = spec.ToExpression();
 
             Assert.Equal("x.Orders.Any(i => (i.Payment.Id == \"value\"))", expression.Body.ToString());

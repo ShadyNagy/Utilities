@@ -12,7 +12,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
             Value = value;
         }
 
-        public static Specification<TModel, bool> CreateFilterSpecifications(List<FilterModel> filters)
+        public static Specification<TModel, bool> Create(List<FilterModel> filters)
         {
             var spec = All;
 
