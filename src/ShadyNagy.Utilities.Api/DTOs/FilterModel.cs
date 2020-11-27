@@ -28,12 +28,15 @@ namespace ShadyNagy.Utilities.Api.DTOs
 
     public enum ConditionType
     {
-        Contains,
-        NotContains,
-        Equal,
+        Equals,
         NotEqual,
-        StartWith,
-        EndWith
+        GreaterThan,
+        GreaterThanOrEqual,
+        LessThan,
+        LessThanOrEqual,
+        Contains,
+        StartsWith,
+        EndsWith
     }
 
     public enum Operator
