@@ -15,7 +15,7 @@ namespace ShadyNagy.Utilities.Api.DTOs
 
     public class Condition
     {
-        public string Value { get; set; }
+        public object Value { get; set; }
         public FilterType FilterType { get; set; }
         public ConditionType ConditionType { get; set; }
         public Operator OperatorWithNext { get; set; }
