@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using ShadyNagy.Utilities.Extensions.Expressions;
@@ -20,7 +22,6 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
 
         private static readonly MethodInfo _startsWithMethod
             = typeof(string).GetMethod("StartsWith", new Type[] { typeof(string) });
-
 
         public static readonly Specification<T, T2> All = new IdentitySpecification<T, T2>();
         public string PropertyName { get; set; }
@@ -44,7 +45,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
                 }
                 else
                 {
-                    var param = Expression.Parameter(typeof(T));
+                    var param = Expression.Parameter(typeof(T), "x");
                     return Expression.Lambda<Func<T, T2>>(GetFilter(param, PropertyName, FilterOperator, Value), param);
                 }
             }
@@ -56,7 +57,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
                 }
                 else
                 {
-                    var param = Expression.Parameter(typeof(T));
+                    var param = Expression.Parameter(typeof(T), "x");
                     return Expression.Lambda<Func<T, T2>>(GetPropertyGetter<T>(PropertyName), param);
                 }
             }
@@ -96,11 +97,70 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
             return Expression.Lambda<Func<TEntity, object>>(convertedProp, param);
         }
 
-        internal static Expression GetFilter(ParameterExpression param, string property, FilterOperator op, object value)
+        internal static Expression GetFilter(ParameterExpression parameter, string property, FilterOperator op, object value)
         {
             var constant = Expression.Constant(value);
-            var prop = param.GetNestedProperty(property);
-            return CreateFilter(prop, op, constant);
+            if (property.Contains("[") && property.Contains("]"))
+            {
+                var startArray = property.IndexOf("[", StringComparison.Ordinal);
+                var finishArray = property.IndexOf("]", StringComparison.Ordinal);
+                var baseName = property.Substring(0, startArray);
+                var lastIndexOfDot = baseName.LastIndexOf(".", StringComparison.Ordinal);
+
+                Expression paramNested;
+                if (lastIndexOfDot > 0)
+                {
+                    paramNested = GetMember(parameter, baseName.Substring(0, lastIndexOfDot));
+                    baseName = baseName.Substring(lastIndexOfDot + 1);
+                }
+                else
+                {
+                    paramNested = parameter;
+                }
+
+                var name = property.Substring(startArray + 1, finishArray - startArray - 1);
+                var type = paramNested.Type.GetRuntimeProperty(baseName).PropertyType.GenericTypeArguments[0];
+
+                var methodAny = typeof(Enumerable).GetRuntimeMethods().First(x => x.Name == "Any" && x.GetParameters().Length == 2).MakeGenericMethod(type);
+                var memberAny = GetMember(paramNested, baseName);
+                var parameterAny = Expression.Parameter(type, "i");
+                var member = GetMember(parameterAny, name);
+                var expressionAny = CreateFilter(member, op, constant);
+                var expr2 = Expression.Lambda(expressionAny, parameterAny);
+
+                return Expression.Call(methodAny, memberAny, expr2);
+            }
+            else
+            {
+                
+                var prop = parameter.GetNestedProperty(property);
+                return CreateFilter(prop, op, constant);
+            }
+        }
+
+        private static MemberExpression GetMember(Expression parameter, string propertyName)
+        {
+            if (parameter == null)
+                throw new ArgumentNullException(nameof(parameter));
+
+            if (propertyName == null)
+                throw new ArgumentNullException(nameof(propertyName));
+
+            while (true)
+            {
+                if (propertyName.Contains("."))
+                {
+                    var index = propertyName.IndexOf(".", StringComparison.Ordinal);
+                    var param = Expression.Property(parameter, propertyName.Substring(0, index));
+
+                    parameter = param;
+                    propertyName = propertyName.Substring(index + 1);
+
+                    continue;
+                }
+
+                return Expression.Property(parameter, propertyName);
+            }
         }
 
         private static Expression CreateFilter(MemberExpression prop, FilterOperator filterOperator, ConstantExpression constant)
@@ -108,11 +168,11 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
             switch (filterOperator)
             {
                 case FilterOperator.Equals:
-                    return Expression.Equal(prop, constant);
+                    return Expression.Equal(prop, PrepareConstantToSameType(prop, constant));
                 case FilterOperator.GreaterThan:
-                    return Expression.GreaterThan(prop, constant);
+                    return Expression.GreaterThan(prop, PrepareConstantToSameType(prop, constant));
                 case FilterOperator.LessThan:
-                    return Expression.LessThan(prop, constant);
+                    return Expression.LessThan(prop, PrepareConstantToSameType(prop, constant));
                 case FilterOperator.Contains:
                     return Expression.Call(prop, _containsMethod, PrepareConstant(constant));
                 case FilterOperator.StartsWith:
@@ -120,11 +180,12 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
                 case FilterOperator.EndsWith:
                     return Expression.Call(prop, _endsWithMethod, PrepareConstant(constant));
                 case FilterOperator.NotEqual:
-                    return Expression.NotEqual(prop, constant);
+                    return Expression.NotEqual(prop, PrepareConstantToSameType(prop, constant));
                 case FilterOperator.GreaterThanOrEqual:
-                    return Expression.GreaterThanOrEqual(prop, constant);
+                    return Expression.GreaterThanOrEqual(prop, PrepareConstantToSameType(prop, constant));
                 case FilterOperator.LessThanOrEqual:
-                    return Expression.LessThanOrEqual(prop, constant);
+                    return Expression.LessThanOrEqual(prop, PrepareConstantToSameType(prop, constant));
+                    
 
                 default:
                     throw new NotImplementedException();
@@ -138,6 +199,14 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
 
             var convertedExpr = Expression.Convert(constant, typeof(object));
             return Expression.Call(convertedExpr, _toStringMethod);
+        }
+
+        private static Expression PrepareConstantToSameType(MemberExpression prop, ConstantExpression constant)
+        {
+            if (constant.Type == prop.Type)
+                return constant;
+
+            return Expression.Convert(constant, prop.Type);
         }
     }
 }
