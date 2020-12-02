@@ -27,14 +27,15 @@ namespace ShadyNagy.Utilities.Api.DTOs
             set
             {
                 _filters = value;
-                if (value.GetType() != typeof(JsonElement))
-                {
-                    return;
-                }
                 foreach (var filter in _filters)
                 {
                     foreach (var condition in filter.Conditions)
                     {
+                        if (condition.Value.GetType() != typeof(JsonElement))
+                        {
+                            continue;
+                        }
+
                         var temp = (JsonElement)condition.Value;
                         if (temp.ValueKind == JsonValueKind.Number)
                         {
