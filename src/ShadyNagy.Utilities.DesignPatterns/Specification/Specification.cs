@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using ShadyNagy.Utilities.Extensions.Expressions;
+using ShadyNagy.Utilities.Extensions.Object;
 
 namespace ShadyNagy.Utilities.DesignPatterns.Specification
 {
@@ -46,7 +47,13 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
                 else
                 {
                     var param = Expression.Parameter(typeof(T), "x");
-                    return Expression.Lambda<Func<T, T2>>(GetFilter(param, PropertyName, FilterOperator, Value), param);
+                    var expression = GetFilter(param, PropertyName, FilterOperator, Value);
+                    if (expression == null)
+                    {
+                        return x => (T2)(object)Convert.ToBoolean(true);
+                    }
+
+                    return Expression.Lambda<Func<T, T2>>(expression, param);
                 }
             }
             else
@@ -132,8 +139,13 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
             }
             else
             {
-                
+                if (!parameter.HasProperty(property))
+                {
+                    return null;
+                }
+
                 var prop = parameter.GetNestedProperty(property);
+
                 return CreateFilter(prop, op, constant);
             }
         }

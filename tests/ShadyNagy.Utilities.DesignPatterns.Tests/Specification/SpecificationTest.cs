@@ -265,6 +265,29 @@ namespace ShadyNagy.Utilities.DesignPatterns.Tests
 
             Assert.Equal("x.Orders.Any(i => (i.Payment.Id == \"value\"))", expression.Body.ToString());
         }
+
+        [Fact]
+        public void SpecificationBadPropertyEqualTest()
+        {
+            var filters = new List<FilterModel>();
+
+            var filter = new FilterModel { FieldName = "bad", FilterType = FilterType.Text };
+
+            var condition = new Condition
+            {
+                FilterType = FilterType.Text,
+                ConditionType = ConditionType.Equals,
+                Value = "s"
+            };
+
+            filter.Conditions.Add(condition);
+            filters.Add(filter);
+
+            var spec = FilterSpecification<Customer>.Create(filters);
+            var expression = spec.ToExpression();
+
+            Assert.Equal("(x.Name == \"s\")", expression.Body.ToString());
+        }
     }
 
 }
