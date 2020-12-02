@@ -20,9 +20,10 @@ namespace ShadyNagy.Utilities.Api.DTOs
 #if NETFRAMEWORK
         public List<FilterModel> Filters { get; set; }
 #else
+        private List<FilterModel> _filters;
         public List<FilterModel> Filters
         {
-            get => Filters;
+            get => _filters;
             set
             {
                 if (value.GetType() != typeof(JsonElement))
@@ -56,6 +57,8 @@ namespace ShadyNagy.Utilities.Api.DTOs
                         }
                     }
                 }
+
+                _filters = value;
             }
         }
 #endif
