@@ -14,6 +14,9 @@ namespace ShadyNagy.Utilities.Api.DTOs
         public int LanguageId { get; set; }
         public List<SortModel> Sorts { get; set; }
 
+#if NETFRAMEWORK
+        public List<FilterModel> Filters { get; set; }
+#else
         public List<FilterModel> Filters
         {
             get => Filters;
@@ -52,8 +55,9 @@ namespace ShadyNagy.Utilities.Api.DTOs
                 }
             }
         }
+#endif
     }
 
-    
+
 
 }
