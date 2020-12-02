@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json;
 
 namespace ShadyNagy.Utilities.Api.DTOs
 {
@@ -12,7 +13,45 @@ namespace ShadyNagy.Utilities.Api.DTOs
         public int? Page { get; set; }
         public int LanguageId { get; set; }
         public List<SortModel> Sorts { get; set; }
-        public List<FilterModel> Filters { get; set; }
+
+        public List<FilterModel> Filters
+        {
+            get => Filters;
+            set
+            {
+                if (value.GetType() != typeof(JsonElement))
+                {
+                    return;
+                }
+                foreach (var filter in value)
+                {
+                    foreach (var condition in filter.Conditions)
+                    {
+                        var temp = (JsonElement)condition.Value;
+                        if (temp.ValueKind == JsonValueKind.Number)
+                        {
+                            condition.Value = temp.GetDecimal();
+                        }
+                        else if (temp.ValueKind == JsonValueKind.String)
+                        {
+                            condition.Value = temp.GetString();
+                        }
+                        else if (temp.ValueKind == JsonValueKind.Null)
+                        {
+                            condition.Value = null;
+                        }
+                        else if (temp.ValueKind == JsonValueKind.False)
+                        {
+                            condition.Value = false;
+                        }
+                        else if (temp.ValueKind == JsonValueKind.True)
+                        {
+                            condition.Value = true;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     
