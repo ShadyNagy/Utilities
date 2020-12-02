@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+#if NETFRAMEWORK
+#else
 using System.Text.Json;
+#endif
 
 namespace ShadyNagy.Utilities.Api.DTOs
 {
