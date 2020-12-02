@@ -26,11 +26,12 @@ namespace ShadyNagy.Utilities.Api.DTOs
             get => _filters;
             set
             {
+                _filters = value;
                 if (value.GetType() != typeof(JsonElement))
                 {
                     return;
                 }
-                foreach (var filter in value)
+                foreach (var filter in _filters)
                 {
                     foreach (var condition in filter.Conditions)
                     {
@@ -57,8 +58,6 @@ namespace ShadyNagy.Utilities.Api.DTOs
                         }
                     }
                 }
-
-                _filters = value;
             }
         }
 #endif
