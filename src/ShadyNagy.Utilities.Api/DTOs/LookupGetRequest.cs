@@ -27,11 +27,19 @@ namespace ShadyNagy.Utilities.Api.DTOs
             set
             {
                 _filters = value;
+                if (_filters == null)
+                {
+                    return;
+                }
                 foreach (var filter in _filters)
                 {
+                    if (filter == null)
+                    {
+                        continue;
+                    }
                     foreach (var condition in filter.Conditions)
                     {
-                        if (condition.Value.GetType() != typeof(JsonElement))
+                        if (condition?.Value == null || condition.Value.GetType() != typeof(JsonElement))
                         {
                             continue;
                         }
