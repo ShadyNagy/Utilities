@@ -179,8 +179,31 @@ namespace ShadyNagy.Utilities.Extensions.Object
             return propertyList;
         }
 
-        public static bool HasProperty(this object obj, string propertyName)
+        public static string GetPropertyName(this object obj, string propertyNameIgnoreCase)
         {
+            if (obj == null)
+            {
+                return null;
+            }
+
+            foreach (var prop in obj.GetType().GetProperties())
+            {
+                if (string.Equals(propertyNameIgnoreCase, prop.Name, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    return prop.Name;
+                }
+            }
+
+            return null;
+        }
+
+        public static bool HasProperty(this object obj, string propertyName, bool isIgnoreCase=true)
+        {
+            if (isIgnoreCase)
+            {
+                return obj.GetType().GetProperty(propertyName, BindingFlags.IgnoreCase) != null;
+            }
+
             return obj.GetType().GetProperty(propertyName) != null;
         }
 
