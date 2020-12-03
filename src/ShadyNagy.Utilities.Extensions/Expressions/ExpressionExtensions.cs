@@ -1,20 +1,26 @@
 ﻿using System.Linq.Expressions;
+using ShadyNagy.Utilities.Extensions.Object;
 
 namespace ShadyNagy.Utilities.Extensions.Expressions
 {
     public static class ExpressionExtensions
     {
-        public static MemberExpression GetNestedProperty(this Expression param, string property)
+        public static MemberExpression GetNestedProperty(this Expression parameter, string property)
         {
-            var propNames = property.Split('.');
-            var propExpr = Expression.Property(param, propNames[0]);
+            var propertyNames = property.Split('.');
+            var propertyExpr = Expression.Property(parameter, propertyNames[0]);
 
-            for (var i = 1; i < propNames.Length; i++)
+            for (var i = 1; i < propertyNames.Length; i++)
             {
-                propExpr = Expression.Property(propExpr, propNames[i]);
+                var propertyName = parameter.GetPropertyName(propertyNames[i]);
+                if (string.IsNullOrEmpty(propertyName))
+                {
+                    continue;
+                }
+                propertyExpr = Expression.Property(propertyExpr, propertyName);
             }
 
-            return propExpr;
+            return propertyExpr;
         }
 
     }
