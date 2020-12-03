@@ -125,13 +125,28 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
                     paramNested = parameter;
                 }
 
+                if (paramNested == null)
+                {
+                    return null;
+                }
+
                 var name = property.Substring(startArray + 1, finishArray - startArray - 1);
                 var type = paramNested.Type.GetRuntimeProperty(baseName).PropertyType.GenericTypeArguments[0];
 
                 var methodAny = typeof(Enumerable).GetRuntimeMethods().First(x => x.Name == "Any" && x.GetParameters().Length == 2).MakeGenericMethod(type);
                 var memberAny = GetMember(paramNested, baseName);
+                if (memberAny == null)
+                {
+                    return null;
+                }
+
                 var parameterAny = Expression.Parameter(type, "i");
                 var member = GetMember(parameterAny, name);
+                if (member == null)
+                {
+                    return null;
+                }
+
                 var expressionAny = CreateFilter(member, op, constant);
                 var expr2 = Expression.Lambda(expressionAny, parameterAny);
 
@@ -162,6 +177,10 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
                 {
                     var index = propertyName.IndexOf(".", StringComparison.Ordinal);
                     var param = ExpressionWrapper.Property(parameter, propertyName.Substring(0, index));
+                    if (param == null)
+                    {
+                        continue;
+                    }
 
                     parameter = param;
                     propertyName = propertyName.Substring(index + 1);
