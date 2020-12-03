@@ -139,11 +139,6 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
             }
             else
             {
-                if (!parameter.HasProperty(property))
-                {
-                    return null;
-                }
-
                 var prop = parameter.GetNestedProperty(property);
 
                 return CreateFilter(prop, op, constant);
