@@ -8,7 +8,8 @@ namespace ShadyNagy.Utilities.Extensions.Expressions
         public static MemberExpression GetNestedProperty(this Expression parameter, string property)
         {
             var propertyNames = property.Split('.');
-            var propertyExpr = Expression.Property(parameter, propertyNames[0]);
+            var propertyNameExpr = parameter.GetPropertyName(propertyNames[0]);
+            var propertyExpr = Expression.Property(parameter, propertyNameExpr);
 
             for (var i = 1; i < propertyNames.Length; i++)
             {
