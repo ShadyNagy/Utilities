@@ -161,7 +161,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
                 if (propertyName.Contains("."))
                 {
                     var index = propertyName.IndexOf(".", StringComparison.Ordinal);
-                    var param = Expression.Property(parameter, propertyName.Substring(0, index));
+                    var param = ExpressionWrapper.Property(parameter, propertyName.Substring(0, index));
 
                     parameter = param;
                     propertyName = propertyName.Substring(index + 1);
@@ -169,7 +169,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
                     continue;
                 }
 
-                return Expression.Property(parameter, propertyName);
+                return ExpressionWrapper.Property(parameter, propertyName);
             }
         }
 
