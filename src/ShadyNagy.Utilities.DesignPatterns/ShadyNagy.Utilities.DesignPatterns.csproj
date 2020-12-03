@@ -14,7 +14,7 @@
     <RepositoryUrl>https://github.com/ShadyNagy/Utilities</RepositoryUrl>
     <PackageTags>Design Patterns,Service, Repository, utilities, Dynamic Filters, Dynamic</PackageTags>
     <PackageIcon>icon.png</PackageIcon>
-    <Version>2.0.7</Version>
+    <Version>2.0.8</Version>
     <PackageReleaseNotes>Added Dynamic Specification with FilterSpecification.</PackageReleaseNotes>
     <AssemblyName>ShadyNagy.Utilities.DesignPatterns</AssemblyName>
     <Features>strict</Features>
