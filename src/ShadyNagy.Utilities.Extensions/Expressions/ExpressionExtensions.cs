@@ -9,6 +9,10 @@ namespace ShadyNagy.Utilities.Extensions.Expressions
         {
             var propertyNames = property.Split('.');
             var propertyNameExpr = parameter.GetPropertyName(propertyNames[0]);
+            if (string.IsNullOrEmpty(propertyNameExpr))
+            {
+                return null;
+            }
             var propertyExpr = Expression.Property(parameter, propertyNameExpr);
 
             for (var i = 1; i < propertyNames.Length; i++)
