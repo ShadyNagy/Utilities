@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Reflection;
-using ShadyNagy.Utilities.Extensions.Object;
 
 namespace ShadyNagy.Utilities.Extensions.Types
 {
@@ -8,13 +7,30 @@ namespace ShadyNagy.Utilities.Extensions.Types
     {
         public static PropertyInfo GetRuntimePropertyWithoutCase(this Type type, string property)
         {
-            var propertyWithoutCase = type.GetPropertyName(property);
-            if (propertyWithoutCase == null)
+            var propertiesName = type.GetRuntimeProperties();
+            foreach (var propertyName in propertiesName)
             {
-                return null;
+                if (string.Equals(property, propertyName.Name, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    return type.GetRuntimeProperty(propertyName.Name);
+                }
             }
 
-            return type.GetRuntimeProperty(propertyWithoutCase);
+            return null;
+        }
+
+        public static string GetRuntimePropertyNameWithoutCase(this Type type, string property)
+        {
+            var propertiesName = type.GetRuntimeProperties();
+            foreach (var propertyName in propertiesName)
+            {
+                if (string.Equals(property, propertyName.Name, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    return propertyName.Name;
+                }
+            }
+
+            return null;
         }
     }
 }
