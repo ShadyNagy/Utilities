@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using ShadyNagy.Utilities.Extensions.Expressions;
-using ShadyNagy.Utilities.Extensions.Object;
+using ShadyNagy.Utilities.Extensions.Types;
 
 namespace ShadyNagy.Utilities.DesignPatterns.Specification
 {
@@ -47,7 +46,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
                 else
                 {
                     var param = Expression.Parameter(typeof(T), "x");
-                    var expression = GetFilter(param, PropertyName, FilterOperator, Value);
+                    var expression = GetFilter<T>(param, PropertyName, FilterOperator, Value);
                     if (expression == null)
                     {
                         return x => (T2)(object)Convert.ToBoolean(true);
@@ -104,7 +103,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
             return Expression.Lambda<Func<TEntity, object>>(convertedProp, param);
         }
 
-        internal static Expression GetFilter(ParameterExpression parameter, string property, FilterOperator op, object value)
+        internal static Expression GetFilter<T>(ParameterExpression parameter, string property, FilterOperator op, object value)
         {
             var constant = Expression.Constant(value);
             if (property.Contains("[") && property.Contains("]"))
@@ -131,7 +130,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
                 }
 
                 var name = property.Substring(startArray + 1, finishArray - startArray - 1);
-                var type = paramNested.Type.GetRuntimeProperty(baseName).PropertyType.GenericTypeArguments[0];
+                var type = paramNested.Type.GetRuntimePropertyWithoutCase(baseName).PropertyType.GenericTypeArguments[0];
 
                 var methodAny = typeof(Enumerable).GetRuntimeMethods().First(x => x.Name == "Any" && x.GetParameters().Length == 2).MakeGenericMethod(type);
                 var memberAny = GetMember(paramNested, baseName);
@@ -154,12 +153,12 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
             }
             else
             {
-                var prop = parameter.GetNestedProperty(property);
-                if (prop == null)
+                var member = GetMember(parameter, property);
+                if (member == null)
                 {
                     return null;
                 }
-                return CreateFilter(prop, op, constant);
+                return CreateFilter(member, op, constant);
             }
         }
 
@@ -176,19 +175,28 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
                 if (propertyName.Contains("."))
                 {
                     var index = propertyName.IndexOf(".", StringComparison.Ordinal);
-                    var param = ExpressionWrapper.Property(parameter, propertyName.Substring(0, index));
-                    if (param == null)
-                    {
-                        continue;
-                    }
+
+                    var tempName = propertyName.Substring(0, index);
+                    var propertyNameToUse = parameter.Type.GetRuntimePropertyNameWithoutCase(tempName);
+
+                    var param = Expression.Property(parameter, propertyNameToUse);
 
                     parameter = param;
                     propertyName = propertyName.Substring(index + 1);
 
                     continue;
                 }
+                else
+                {
+                    propertyName = parameter.Type.GetRuntimePropertyNameWithoutCase(propertyName);
+                }
 
-                return ExpressionWrapper.Property(parameter, propertyName);
+                if (string.IsNullOrEmpty(propertyName))
+                {
+                    return null;
+                }
+
+                return Expression.Property(parameter, propertyName);
             }
         }
 

@@ -225,7 +225,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Tests
         {
             var filters = new List<FilterModel>();
 
-            var filter = new FilterModel { FieldName = "Payment.Cost", FilterType = FilterType.Text };
+            var filter = new FilterModel { FieldName = "payment.cost", FilterType = FilterType.Text };
 
             var condition = new Condition
             {
@@ -271,7 +271,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Tests
         {
             var filters = new List<FilterModel>();
 
-            var filter = new FilterModel { FieldName = "name", FilterType = FilterType.Text };
+            var filter = new FilterModel { FieldName = "bad", FilterType = FilterType.Text };
 
             var condition = new Condition
             {
