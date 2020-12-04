@@ -286,7 +286,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Tests
             var spec = FilterSpecification<Customer>.Create(filters);
             var expression = spec.ToExpression();
 
-            Assert.Equal("(x.Name == \"s\")", expression.Body.ToString());
+            Assert.Equal("Convert(Convert(ToBoolean(True), Object), Boolean)", expression.Body.ToString());
         }
     }
 
