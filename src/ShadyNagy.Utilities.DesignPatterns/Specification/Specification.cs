@@ -46,7 +46,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
                 else
                 {
                     var param = Expression.Parameter(typeof(T), "x");
-                    var expression = GetFilter<T>(param, PropertyName, FilterOperator, Value);
+                    var expression = GetFilter(param, PropertyName, FilterOperator, Value);
                     if (expression == null)
                     {
                         return x => (T2)(object)Convert.ToBoolean(true);
@@ -103,7 +103,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
             return Expression.Lambda<Func<TEntity, object>>(convertedProp, param);
         }
 
-        internal static Expression GetFilter<T>(ParameterExpression parameter, string property, FilterOperator op, object value)
+        internal static Expression GetFilter(ParameterExpression parameter, string property, FilterOperator op, object value)
         {
             var constant = Expression.Constant(value);
             if (property.Contains("[") && property.Contains("]"))
