@@ -15,6 +15,11 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
         {
             var spec = All;
 
+            if (sorts == null || sorts.Count <= 0)
+            {
+                return spec;
+            }
+
             foreach (var sort in sorts)
             {
                 var sortOrder = (SortOrder)(int)sort.Order;

@@ -16,6 +16,11 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
         {
             var spec = All;
 
+            if (filters == null || filters.Count <= 0)
+            {
+                return spec;
+            }
+
             foreach (var filter in filters)
             {
                 foreach (var condition in filter.Conditions)
