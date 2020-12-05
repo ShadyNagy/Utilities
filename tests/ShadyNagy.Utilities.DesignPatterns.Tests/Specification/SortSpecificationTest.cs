@@ -20,7 +20,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Tests
             var spec = SortSpecification<Customer>.Create(sorts);
             var expression = spec.ToExpression();
 
-            Assert.Equal("x.Name.Contains(\"s\")", expression.Body.ToString());
+            Assert.Equal("Convert(x.Name, Object)", expression.Body.ToString());
         }
 
        
