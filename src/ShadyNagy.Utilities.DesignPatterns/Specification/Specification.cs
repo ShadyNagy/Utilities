@@ -65,10 +65,15 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
                 else
                 {
                     var param = Expression.Parameter(typeof(T), "x");
-                    var prop = GetMember(param, PropertyName);
-                    var convertedProp = Expression.Convert(prop, typeof(object));
 
-                    return Expression.Lambda<Func<T, T2>>(convertedProp, param);
+                    var expression = CreateSortExpression(param, PropertyName);
+                    if (expression == null)
+                    {
+                        return x => default;
+                    }
+
+
+                    return Expression.Lambda<Func<T, T2>>(expression, param);
                 }
             }
         }
@@ -152,6 +157,67 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
                     return null;
                 }
                 return CreateFilter(member, op, constant);
+            }
+        }
+
+        internal static Expression CreateSortExpression(ParameterExpression parameter, string property)
+        {
+            if (property.Contains("[") && property.Contains("]"))
+            {
+                var startArray = property.IndexOf("[", StringComparison.Ordinal);
+                var finishArray = property.IndexOf("]", StringComparison.Ordinal);
+                var baseName = property.Substring(0, startArray);
+                var lastIndexOfDot = baseName.LastIndexOf(".", StringComparison.Ordinal);
+
+                Expression paramNested;
+                if (lastIndexOfDot > 0)
+                {
+                    paramNested = GetMember(parameter, baseName.Substring(0, lastIndexOfDot));
+                    baseName = baseName.Substring(lastIndexOfDot + 1);
+                }
+                else
+                {
+                    paramNested = parameter;
+                }
+
+                if (paramNested == null)
+                {
+                    return null;
+                }
+
+                var name = property.Substring(startArray + 1, finishArray - startArray - 1);
+                var type = paramNested.Type.GetRuntimePropertyWithoutCase(baseName).PropertyType.GenericTypeArguments[0];
+
+                var enumerableMethod = typeof(Enumerable).GetRuntimeMethods().First(x => x.Name == "FirstOrDefault" && x.GetParameters().Length == 1).MakeGenericMethod(type);
+                var enumerableMember = GetMember(paramNested, baseName);
+                if (enumerableMember == null)
+                {
+                    return null;
+                }
+
+                var parameterEnumerable = Expression.Call(enumerableMethod, enumerableMember);
+                var member = GetMember(parameterEnumerable, name);
+                if (member == null)
+                {
+                    return null;
+                }
+
+                //I think that no need.
+                //var convertedProp = Expression.Convert(member, typeof(object));
+
+                return member;
+            }
+            else
+            {
+                var member = GetMember(parameter, property);
+                if (member == null)
+                {
+                    return null;
+                }
+                //I think that no need.
+                //var convertedProp = Expression.Convert(member, typeof(object));
+
+                return member;
             }
         }
 

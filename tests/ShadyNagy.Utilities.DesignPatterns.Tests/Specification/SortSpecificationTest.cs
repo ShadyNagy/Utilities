@@ -20,10 +20,23 @@ namespace ShadyNagy.Utilities.DesignPatterns.Tests
             var spec = SortSpecification<Customer>.Create(sorts);
             var expression = spec.ToExpression();
 
-            Assert.Equal("Convert(x.Name, Object)", expression.Body.ToString());
+            Assert.Equal("x.Name", expression.Body.ToString());
         }
 
-       
+        [Fact]
+        public void AscNestedTest()
+        {
+            var sorts = new List<SortModel>();
+
+            var sort = new SortModel { FieldName = "Orders[Payment.Id]", Order = SortOrder.Asc };
+
+            sorts.Add(sort);
+
+            var spec = SortSpecification<Customer>.Create(sorts);
+            var expression = spec.ToExpression();
+
+            Assert.Equal("x.Orders.FirstOrDefault().Payment.Id", expression.Body.ToString());
+        }
     }
 
 }
