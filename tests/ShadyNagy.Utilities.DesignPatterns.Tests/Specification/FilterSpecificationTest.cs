@@ -6,7 +6,7 @@ using Xunit;
 
 namespace ShadyNagy.Utilities.DesignPatterns.Tests
 {
-    public class UnitTest1
+    public class FilterSpecificationTest
     {
         [Fact]
         public void SpecificationContainsTest()

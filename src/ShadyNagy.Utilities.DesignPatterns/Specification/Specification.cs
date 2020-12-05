@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using ShadyNagy.Utilities.Extensions.Expressions;
+using ShadyNagy.Utilities.Api.DTOs;
 using ShadyNagy.Utilities.Extensions.Types;
 
 namespace ShadyNagy.Utilities.DesignPatterns.Specification
@@ -26,6 +26,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
         public static readonly Specification<T, T2> All = new IdentitySpecification<T, T2>();
         public string PropertyName { get; set; }
         public FilterOperator FilterOperator { get; set; }
+        public SortOrder SortOrder { get; set; }
         public object Value { get; set; }
 
         public T2 IsSatisfiedBy(T entity)
@@ -64,7 +65,10 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
                 else
                 {
                     var param = Expression.Parameter(typeof(T), "x");
-                    return Expression.Lambda<Func<T, T2>>(GetPropertyGetter<T>(PropertyName), param);
+                    var prop = GetMember(param, PropertyName);
+                    var convertedProp = Expression.Convert(prop, typeof(object));
+
+                    return Expression.Lambda<Func<T, T2>>(convertedProp, param);
                 }
             }
         }
@@ -90,17 +94,6 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
         public Specification<T, T2> Not()
         {
             return new NotSpecification<T, T2>(this);
-        }
-
-        public static Expression<Func<TEntity, object>> GetPropertyGetter<TEntity>(string property)
-        {
-            if (property == null)
-                throw new ArgumentNullException(nameof(property));
-
-            var param = Expression.Parameter(typeof(TEntity));
-            var prop = param.GetNestedProperty(property);
-            var convertedProp = Expression.Convert(prop, typeof(object));
-            return Expression.Lambda<Func<TEntity, object>>(convertedProp, param);
         }
 
         internal static Expression GetFilter(ParameterExpression parameter, string property, FilterOperator op, object value)
