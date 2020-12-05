@@ -197,27 +197,17 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
 
                 var parameterEnumerable = Expression.Call(enumerableMethod, enumerableMember);
                 var member = GetMember(parameterEnumerable, name);
-                if (member == null)
-                {
-                    return null;
-                }
 
-                //I think that no need.
-                //var convertedProp = Expression.Convert(member, typeof(object));
+                var convertedProp = Expression.Convert(member, typeof(object));
 
-                return member;
+                return convertedProp;
             }
             else
             {
                 var member = GetMember(parameter, property);
-                if (member == null)
-                {
-                    return null;
-                }
-                //I think that no need.
-                //var convertedProp = Expression.Convert(member, typeof(object));
 
-                return member;
+                var convertedProp = Expression.Convert(member, typeof(object));
+                return convertedProp;
             }
         }
 
