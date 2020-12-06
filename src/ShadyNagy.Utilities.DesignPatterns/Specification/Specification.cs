@@ -38,19 +38,21 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
 
         public virtual Expression<Func<T, T2>> ToExpression()
         {
+            var param = Expression.Parameter(typeof(T), "x");
             if (typeof(T2) == typeof(bool))
             {
                 if (string.IsNullOrEmpty(PropertyName))
                 {
-                    return x => (T2)(object)Convert.ToBoolean(true);
+                    //return x => (T2)(object)Convert.ToBoolean(true);
+                    return Expression.Lambda<Func<T, T2>>(param);
                 }
                 else
                 {
-                    var param = Expression.Parameter(typeof(T), "x");
                     var expression = GetFilter(param, PropertyName, FilterOperator, Value);
                     if (expression == null)
                     {
-                        return x => (T2)(object)Convert.ToBoolean(true);
+                        //return x => (T2)(object)Convert.ToBoolean(true);
+                        return Expression.Lambda<Func<T, T2>>(param);
                     }
 
                     return Expression.Lambda<Func<T, T2>>(expression, param);
@@ -60,16 +62,14 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
             {
                 if (string.IsNullOrEmpty(PropertyName))
                 {
-                    return x => (T2)(object)x;
+                    return Expression.Lambda<Func<T, T2>>(param);
                 }
                 else
                 {
-                    var param = Expression.Parameter(typeof(T), "x");
-
                     var expression = CreateSortExpression(param, PropertyName);
                     if (expression == null)
                     {
-                        return x => (T2)(object)x;
+                        return Expression.Lambda<Func<T, T2>>(param);
                     }
 
 
