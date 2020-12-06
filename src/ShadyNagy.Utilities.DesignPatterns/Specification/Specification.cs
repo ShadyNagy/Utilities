@@ -60,7 +60,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
             {
                 if (string.IsNullOrEmpty(PropertyName))
                 {
-                    return x => default;
+                    return x => (T2)(object)x;
                 }
                 else
                 {
@@ -69,7 +69,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
                     var expression = CreateSortExpression(param, PropertyName);
                     if (expression == null)
                     {
-                        return x => default;
+                        return x => (T2)(object)x;
                     }
 
 
