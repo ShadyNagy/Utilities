@@ -197,6 +197,10 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
 
                 var parameterEnumerable = Expression.Call(enumerableMethod, enumerableMember);
                 var member = GetMember(parameterEnumerable, name);
+                if (member == null)
+                {
+                    return null;
+                }
 
                 var convertedProp = Expression.Convert(member, typeof(object));
 
@@ -205,6 +209,10 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
             else
             {
                 var member = GetMember(parameter, property);
+                if (member == null)
+                {
+                    return null;
+                }
 
                 var convertedProp = Expression.Convert(member, typeof(object));
                 return convertedProp;
