@@ -44,7 +44,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
                 if (string.IsNullOrEmpty(PropertyName))
                 {
                     //return x => (T2)(object)Convert.ToBoolean(true);
-                    return Expression.Lambda<Func<T, T2>>(param);
+                    return Expression.Lambda<Func<T, T2>>(Expression.Constant(true), param);
                 }
                 else
                 {
@@ -52,7 +52,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
                     if (expression == null)
                     {
                         //return x => (T2)(object)Convert.ToBoolean(true);
-                        return Expression.Lambda<Func<T, T2>>(param);
+                        return Expression.Lambda<Func<T, T2>>(Expression.Constant(true), param);
                     }
 
                     return Expression.Lambda<Func<T, T2>>(expression, param);
@@ -62,14 +62,14 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
             {
                 if (string.IsNullOrEmpty(PropertyName))
                 {
-                    return Expression.Lambda<Func<T, T2>>(param);
+                    return Expression.Lambda<Func<T, T2>>(param, param);
                 }
                 else
                 {
                     var expression = CreateSortExpression(param, PropertyName);
                     if (expression == null)
                     {
-                        return Expression.Lambda<Func<T, T2>>(param);
+                        return Expression.Lambda<Func<T, T2>>(param, param);
                     }
 
 
@@ -197,25 +197,25 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
 
                 var parameterEnumerable = Expression.Call(enumerableMethod, enumerableMember);
                 var member = GetMember(parameterEnumerable, name);
-                if (member == null)
-                {
-                    return null;
-                }
+                //if (member == null)
+                //{
+                //    return null;
+                //}
 
-                var convertedProp = Expression.Convert(member, typeof(object));
+                //var convertedProp = Expression.Convert(member, typeof(object));
 
-                return convertedProp;
+                return member;
             }
             else
             {
                 var member = GetMember(parameter, property);
-                if (member == null)
-                {
-                    return null;
-                }
+                //if (member == null)
+                //{
+                //    return null;
+                //}
 
-                var convertedProp = Expression.Convert(member, typeof(object));
-                return convertedProp;
+                //var convertedProp = Expression.Convert(member, typeof(object));
+                return member;
             }
         }
 

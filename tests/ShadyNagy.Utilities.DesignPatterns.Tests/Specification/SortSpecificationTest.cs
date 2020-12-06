@@ -37,6 +37,21 @@ namespace ShadyNagy.Utilities.DesignPatterns.Tests
 
             Assert.Equal("x.Orders.FirstOrDefault().Payment.Id", expression.Body.ToString());
         }
+
+        [Fact]
+        public void BadTest()
+        {
+            var sorts = new List<SortModel>();
+
+            var sort = new SortModel { FieldName = "sdfsdf", Order = SortOrder.Asc };
+
+            sorts.Add(sort);
+
+            var spec = SortSpecification<Customer>.Create(sorts);
+            var expression = spec.ToExpression();
+
+            Assert.Equal("x", expression.Body.ToString());
+        }
     }
 
 }
