@@ -253,7 +253,8 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
                 case FilterOperator.Equals:
                     if (prop.Type == _guidType || prop.Type == _nullableGuidType)
                     {
-                        return Expression.Equal(ToExpressionString(prop),  constant);
+                        var convertedToString = Expression.Call(prop, _toStringMethod);
+                        return Expression.Equal(convertedToString,  constant);
                     }
                     else
                     {
