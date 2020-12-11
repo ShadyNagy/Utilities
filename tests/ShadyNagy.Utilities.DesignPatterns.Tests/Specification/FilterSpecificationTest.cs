@@ -49,7 +49,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Tests
 
             var spec = FilterSpecification<Customer>.Create(filters);
             var expression = spec.ToExpression();
-            Assert.Equal("(Convert(x.Id, Object).ToString() == Convert(30b423e0-c928-46a7-8ef6-a3089d673935, Object).ToString())", expression.Body.ToString());
+            Assert.Equal("(Convert(x.Id, Object).ToString() == \"30b423e0-c928-46a7-8ef6-a3089d673935\")", expression.Body.ToString());
         }
 
         [Fact]
