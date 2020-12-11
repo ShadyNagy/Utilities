@@ -37,6 +37,11 @@ namespace ShadyNagy.Utilities.Extensions.Types
 
         public static IEnumerable<MethodInfo> GetExtensionMethods(this Type type, Assembly extensionsAssembly)
         {
+            if (extensionsAssembly == null)
+            {
+                return new List<MethodInfo>();
+            }
+
             var query = from t in extensionsAssembly.GetTypes()
                         where !t.IsGenericType && !t.IsNested
                         from m in t.GetMethods(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
@@ -56,7 +61,7 @@ namespace ShadyNagy.Utilities.Extensions.Types
         {
             var methods = (from m in type.GetExtensionMethods(extensionsAssembly)
                            where m.Name == name
-                           && m.GetParameters().Count() == types.Length + 1
+                           && m.GetParameters().Count() == (types?.Length + 1 ?? 1)
                            select m).ToList();
 
             if (!methods.Any())
