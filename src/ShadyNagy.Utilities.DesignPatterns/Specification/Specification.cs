@@ -12,6 +12,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
     {
         private static readonly Type _stringType = typeof(string);
         private static readonly Type _guidType = typeof(Guid);
+        private static readonly Type _nullableGuidType = typeof(Guid?);
 
         private static readonly MethodInfo _toStringMethod = typeof(object).GetMethod("ToString");
 
@@ -250,7 +251,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
             switch (filterOperator)
             {
                 case FilterOperator.Equals:
-                    if (prop.Type == _guidType)
+                    if (prop.Type == _guidType || prop.Type == _nullableGuidType)
                     {
                         return Expression.Equal(ToExpressionString(prop),  constant);
                     }
