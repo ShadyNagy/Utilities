@@ -114,7 +114,10 @@ namespace ShadyNagy.Utilities.Extensions.String
 
         public static Guid ToGuid(this string str)
         {
-            Guid.TryParse(str, out var result);
+            if (!Guid.TryParse(str, out var result))
+            {
+                return Guid.Empty;
+            }
 
             return result;
         }
