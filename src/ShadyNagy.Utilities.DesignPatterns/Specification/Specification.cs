@@ -102,7 +102,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
 
         internal static Expression GetFilter(ParameterExpression parameter, string property, FilterOperator op, object value)
         {
-            var constant = Expression.Constant(value);
+            var constant = Expression.Constant(value is Guid ? value.ToString(): value);
             if (property.Contains("[") && property.Contains("]"))
             {
                 var startArray = property.IndexOf("[", StringComparison.Ordinal);
@@ -252,7 +252,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
                 case FilterOperator.Equals:
                     if (prop.Type == _guidType)
                     {
-                        return Expression.Equal(ToExpressionString(prop), PrepareConstantToSameType(prop, constant));
+                        return Expression.Equal(ToExpressionString(prop),  constant);
                     }
                     else
                     {
@@ -292,11 +292,6 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
 
         private static Expression PrepareConstantToSameType(MemberExpression prop, ConstantExpression constant)
         {
-            if (prop.Type == _guidType)
-            {
-                return ToExpressionString(constant);
-            }
-
             if (constant.Type == prop.Type)
                 return constant;
 
