@@ -112,6 +112,23 @@ namespace ShadyNagy.Utilities.Extensions.String
             return bool.TryParse(str, out res);
         }
 
+        public static Guid ToGuid(this string str)
+        {
+            Guid.TryParse(str, out var result);
+
+            return result;
+        }
+
+        public static Guid? ToNullableGuid(this string str)
+        {
+            if (!Guid.TryParse(str, out var result))
+            {
+                return null;
+            }
+
+            return result;
+        }
+
         public static object ToNullableByType(this string str, string outType, string format=null)
         {
         
