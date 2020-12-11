@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using ShadyNagy.Utilities.Api.DTOs;
 using ShadyNagy.Utilities.DesignPatterns.Specification;
@@ -27,6 +28,28 @@ namespace ShadyNagy.Utilities.DesignPatterns.Tests
             var expression = spec.ToExpression();
 
             Assert.Equal("x.Name.Contains(\"s\")", expression.Body.ToString());
+        }
+
+        [Fact]
+        public void SpecificationEqualGuidTest()
+        {
+            var filters = new List<FilterModel>();
+
+            var filter = new FilterModel { FieldName = "Id", FilterType = FilterType.Text };
+
+            var condition = new Condition
+            {
+                FilterType = FilterType.Text,
+                ConditionType = ConditionType.Equals,
+                Value = Guid.Parse("30b423e0-c928-46a7-8ef6-a3089d673935")
+            };
+
+            filter.Conditions.Add(condition);
+            filters.Add(filter);
+
+            var spec = FilterSpecification<Customer>.Create(filters);
+            var expression = spec.ToExpression();
+            Assert.Equal("(Convert(x.Id, Object).ToString() == Convert(30b423e0-c928-46a7-8ef6-a3089d673935, Object).ToString())", expression.Body.ToString());
         }
 
         [Fact]

@@ -11,6 +11,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
     public abstract class Specification<T, T2>
     {
         private static readonly Type _stringType = typeof(string);
+        private static readonly Type _guidType = typeof(Guid);
 
         private static readonly MethodInfo _toStringMethod = typeof(object).GetMethod("ToString");
 
@@ -43,7 +44,6 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
             {
                 if (string.IsNullOrEmpty(PropertyName))
                 {
-                    //return x => (T2)(object)Convert.ToBoolean(true);
                     return Expression.Lambda<Func<T, T2>>(Expression.Constant(true), param);
                 }
                 else
@@ -51,7 +51,6 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
                     var expression = GetFilter(param, PropertyName, FilterOperator, Value);
                     if (expression == null)
                     {
-                        //return x => (T2)(object)Convert.ToBoolean(true);
                         return Expression.Lambda<Func<T, T2>>(Expression.Constant(true), param);
                     }
 
@@ -197,24 +196,13 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
 
                 var parameterEnumerable = Expression.Call(enumerableMethod, enumerableMember);
                 var member = GetMember(parameterEnumerable, name);
-                //if (member == null)
-                //{
-                //    return null;
-                //}
-
-                //var convertedProp = Expression.Convert(member, typeof(object));
 
                 return member;
             }
             else
             {
                 var member = GetMember(parameter, property);
-                //if (member == null)
-                //{
-                //    return null;
-                //}
 
-                //var convertedProp = Expression.Convert(member, typeof(object));
                 return member;
             }
         }
@@ -262,7 +250,15 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
             switch (filterOperator)
             {
                 case FilterOperator.Equals:
-                    return Expression.Equal(prop, PrepareConstantToSameType(prop, constant));
+                    if (prop.Type == _guidType)
+                    {
+                        return Expression.Equal(ToExpressionString(prop), PrepareConstantToSameType(prop, constant));
+                    }
+                    else
+                    {
+                        return Expression.Equal(prop, PrepareConstantToSameType(prop, constant));
+                    }
+                        
                 case FilterOperator.GreaterThan:
                     return Expression.GreaterThan(prop, PrepareConstantToSameType(prop, constant));
                 case FilterOperator.LessThan:
@@ -291,16 +287,26 @@ namespace ShadyNagy.Utilities.DesignPatterns.Specification
             if (constant.Type == _stringType)
                 return constant;
 
-            var convertedExpr = Expression.Convert(constant, typeof(object));
-            return Expression.Call(convertedExpr, _toStringMethod);
+            return ToExpressionString(constant);
         }
 
         private static Expression PrepareConstantToSameType(MemberExpression prop, ConstantExpression constant)
         {
+            if (prop.Type == _guidType)
+            {
+                return ToExpressionString(constant);
+            }
+
             if (constant.Type == prop.Type)
                 return constant;
 
             return Expression.Convert(constant, prop.Type);
+        }
+
+        private static Expression ToExpressionString(Expression constant)
+        {
+            var convertedConstantObject = Expression.Convert(constant, typeof(object));
+            return Expression.Call(convertedConstantObject, _toStringMethod);
         }
     }
 }

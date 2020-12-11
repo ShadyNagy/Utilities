@@ -14,7 +14,7 @@
     <RepositoryUrl>https://github.com/ShadyNagy/Utilities</RepositoryUrl>
     <PackageTags>Design Patterns,Service, Repository, utilities, Dynamic Filters, Dynamic</PackageTags>
     <PackageIcon>icon.png</PackageIcon>
-    <Version>2.0.21</Version>
+    <Version>2.0.22</Version>
     <PackageReleaseNotes>Added Dynamic Specification with FilterSpecification and SortSpecification.</PackageReleaseNotes>
     <AssemblyName>ShadyNagy.Utilities.DesignPatterns</AssemblyName>
     <Features>strict</Features>
@@ -34,7 +34,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-*" PrivateAssets="All" />
     <PackageReference Include="ShadyNagy.Utilities.Api" Version="2.0.5" />
-    <PackageReference Include="ShadyNagy.Utilities.Extensions" Version="1.0.16" />
+    <PackageReference Include="ShadyNagy.Utilities.Extensions" Version="1.0.19" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.8.0.18411" PrivateAssets="All" />
   </ItemGroup>
 
