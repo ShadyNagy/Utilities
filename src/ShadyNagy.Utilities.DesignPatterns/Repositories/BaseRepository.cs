@@ -73,6 +73,13 @@ namespace ShadyNagy.Utilities.DesignPatterns.Repositories
             DbContext.Reset();
         }
 
+        public IReadOnlyList<TModel> GetAll()
+        {
+            return DbContext.Set<TModel>()?
+                .OrderBy("CreatedDate")
+                .ToList() as List<TModel>;
+        }
+
         public IReadOnlyList<TModel> GetAllByFilter(Specification<TModel, bool> specification, Specification<TModel, object> orderSpecification = null, SortOrder? sortOrder = null)
         {
             if (orderSpecification == null || sortOrder == null)

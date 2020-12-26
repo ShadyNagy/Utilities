@@ -7,6 +7,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Repositories
 {
     public interface IRepository<TModel>
     {
+        IReadOnlyList<TModel> GetAll();
         IReadOnlyList<TModel> GetAllByFilter(Specification<TModel, bool> specification,
             Specification<TModel, object> orderSpecification = null, SortOrder? sortOrder = null);
         IReadOnlyList<TModel> GetAllByFilterAndPage(Specification<TModel, bool> specification,
