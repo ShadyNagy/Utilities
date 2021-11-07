@@ -22,6 +22,8 @@ namespace ShadyNagy.Utilities.DesignPatterns.Repositories
         string GetConnectionString();
 #if NETFRAMEWORK
          System.Data.Entity.DbContext GetDbContext();
+#elif NET
+        Microsoft.EntityFrameworkCore.DbContext GetDbContext();
 #else
         Microsoft.EntityFrameworkCore.DbContext GetDbContext();
 #endif

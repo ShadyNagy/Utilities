@@ -16,9 +16,11 @@ namespace ShadyNagy.Utilities.DesignPatterns.Repositories
     public abstract class BaseRepository<TModel>: IRepository<TModel> 
         where TModel : class
     {
-#region Fields
+        #region Fields
 #if NETFRAMEWORK
         protected System.Data.Entity.DbContext DbContext { get; set; }
+#elif NET
+        protected Microsoft.EntityFrameworkCore.DbContext DbContext { get; set; }
 #else
         protected Microsoft.EntityFrameworkCore.DbContext DbContext { get; set; }
 #endif
@@ -47,6 +49,11 @@ namespace ShadyNagy.Utilities.DesignPatterns.Repositories
         }
 #if NETFRAMEWORK
         public System.Data.Entity.DbContext GetDbContext()
+        {
+            return DbContext;
+        }
+#elif NET
+         public Microsoft.EntityFrameworkCore.DbContext GetDbContext()
         {
             return DbContext;
         }
@@ -224,6 +231,10 @@ namespace ShadyNagy.Utilities.DesignPatterns.Repositories
             return DbContext
                 .Set<TModel>()
                 .Add(entity);
+#elif NET
+        return DbContext
+                .Add(entity)
+                .Entity;
 #else
             //var toCreate = DbContext.CreateProxy<TModel>();
             //DbContext.Entry(toCreate).CurrentValues.SetValues(entity);
@@ -287,6 +298,8 @@ namespace ShadyNagy.Utilities.DesignPatterns.Repositories
                     {
 #if NETFRAMEWORK
                         DbContext.Entry(translation).State = System.Data.Entity.EntityState.Deleted;
+#elif NET
+                        DbContext.Remove(translation);
 #else
                         DbContext.Remove(translation);
 #endif
@@ -299,6 +312,8 @@ namespace ShadyNagy.Utilities.DesignPatterns.Repositories
                     {
 #if NETFRAMEWORK
                         DbContext.Entry(translation).State = System.Data.Entity.EntityState.Added;
+#elif NET
+                        DbContext.Add(translation);
 #else
                         DbContext.Add(translation);
 #endif
@@ -345,6 +360,8 @@ namespace ShadyNagy.Utilities.DesignPatterns.Repositories
                 {
 #if NETFRAMEWORK
                     DbContext.Entry(translation).State = System.Data.Entity.EntityState.Deleted;
+#elif NET
+                    DbContext.Remove(translation);
 #else
                     DbContext.Remove(translation);
 #endif
@@ -426,6 +443,9 @@ namespace ShadyNagy.Utilities.DesignPatterns.Repositories
         {
 #if NETFRAMEWORK
             return DbContext.GetKeyTypes<TTModel>().Single();
+#elif NET
+            return DbContext.Model.FindEntityType(typeof(TTModel)).FindPrimaryKey().Properties
+                .Select(x => x.ClrType).Single();
 #else
             return DbContext.Model.FindEntityType(typeof(TTModel)).FindPrimaryKey().Properties
                 .Select(x => x.ClrType).Single();
@@ -437,6 +457,9 @@ namespace ShadyNagy.Utilities.DesignPatterns.Repositories
         {
 #if NETFRAMEWORK
             return DbContext.GetKeyNames<TTModel>().Single();
+#elif NET
+            return DbContext.Model.FindEntityType(typeof(TTModel)).FindPrimaryKey().Properties
+                .Select(x => x.Name).Single();
 #else
             return DbContext.Model.FindEntityType(typeof(TTModel)).FindPrimaryKey().Properties
                 .Select(x => x.Name).Single();
