@@ -14,7 +14,7 @@
     <RepositoryUrl>https://github.com/ShadyNagy/Utilities</RepositoryUrl>
     <PackageTags>Design Patterns,Service, Repository, utilities, Dynamic Filters, Dynamic</PackageTags>
     <PackageIcon>icon.png</PackageIcon>
-    <Version>2.1.8</Version>
+    <Version>2.1.9</Version>
     <PackageReleaseNotes>Added GetAll.</PackageReleaseNotes>
     <AssemblyName>ShadyNagy.Utilities.DesignPatterns</AssemblyName>
     <Features>strict</Features>
@@ -47,6 +47,9 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="NETStandard.Library">
+      <Version>2.0.3</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies">
       <Version>3.1.5</Version>
     </PackageReference>
