@@ -463,7 +463,7 @@ namespace ShadyNagy.Utilities.DesignPatterns.Repositories
         }
 #elif NET
         private string GetPrimaryKeyName<TTModel>()
-            where TTModel : class, IReadOnlyModel
+            where TTModel : class
         {
             return DbContext.Model.FindEntityType(typeof(TTModel)).FindPrimaryKey().Properties
                 .Select(x => x.Name).Single();
