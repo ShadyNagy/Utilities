@@ -5,6 +5,9 @@ using System.Linq;
 #if NETSTANDARD2_0
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Proxies;
+#elif NET
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Proxies;
 #endif
 using ShadyNagy.Utilities.Api.DTOs;
 using ShadyNagy.Utilities.DesignPatterns.Specification;
@@ -452,19 +455,27 @@ namespace ShadyNagy.Utilities.DesignPatterns.Repositories
 #endif
         }
 
+#if NETFRAMEWORK
         private string GetPrimaryKeyName<TTModel>()
             where TTModel : class
         {
-#if NETFRAMEWORK
             return DbContext.GetKeyNames<TTModel>().Single();
-#elif NET
-            return DbContext.Model.FindEntityType(typeof(TTModel)).FindPrimaryKey().Properties
-                .Select(x => x.Name).Single();
-#else
-            return DbContext.Model.FindEntityType(typeof(TTModel)).FindPrimaryKey().Properties
-                .Select(x => x.Name).Single();
-#endif
         }
+#elif NET
+        private string GetPrimaryKeyName<TTModel>()
+            where TTModel : class, IReadOnlyModel
+        {
+            return DbContext.Model.FindEntityType(typeof(TTModel)).FindPrimaryKey().Properties
+                .Select(x => x.Name).Single();
+        }
+#else
+        private string GetPrimaryKeyName<TTModel>()
+            where TTModel : class
+        {
+            return DbContext.Model.FindEntityType(typeof(TTModel)).FindPrimaryKey().Properties
+                .Select(x => x.Name).Single();
+        }
+#endif
 
         private object GetValueByPropertyName<TTModel>(object entity)
             where TTModel : class
