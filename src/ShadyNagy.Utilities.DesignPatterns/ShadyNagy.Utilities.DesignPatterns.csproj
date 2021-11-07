@@ -14,7 +14,7 @@
     <RepositoryUrl>https://github.com/ShadyNagy/Utilities</RepositoryUrl>
     <PackageTags>Design Patterns,Service, Repository, utilities, Dynamic Filters, Dynamic</PackageTags>
     <PackageIcon>icon.png</PackageIcon>
-    <Version>2.1.6</Version>
+    <Version>2.1.7</Version>
     <PackageReleaseNotes>Added GetAll.</PackageReleaseNotes>
     <AssemblyName>ShadyNagy.Utilities.DesignPatterns</AssemblyName>
     <Features>strict</Features>
