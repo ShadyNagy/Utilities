@@ -235,6 +235,16 @@ namespace ShadyNagy.Utilities.Extensions.Object
             return prop?.PropertyType;
         }
 
+        public static object GetPropertyNewValue(this object obj, Type type)
+        {
+            if (obj == null)
+            {
+                return Activator.CreateInstance(type);
+            }
+
+            return obj;
+        }
+
         public static object GetPropertyNewValue<T>(this object obj)
         {
             if (obj == null)
