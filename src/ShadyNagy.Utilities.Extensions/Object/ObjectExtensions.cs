@@ -282,6 +282,21 @@ namespace ShadyNagy.Utilities.Extensions.Object
                 propertyInfo.SetValue(obj, parsedValue, null);
                 return obj;
             }
+            else if (propertyType == typeof(bool))
+            {
+                if (bool.TryParse(val.ToString(), out var parsedValue))
+                {
+                    propertyInfo.SetValue(obj, parsedValue, null);
+                    return obj;
+                }
+                else
+                {
+                    var parsedValue2 = Convert.ToBoolean(val);
+                    propertyInfo.SetValue(obj, parsedValue2, null);
+                    return obj;
+                }
+
+            }
 
             propertyInfo.SetValue(obj, val, null);
 
