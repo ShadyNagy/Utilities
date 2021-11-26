@@ -299,7 +299,6 @@ namespace ShadyNagy.Utilities.Extensions.Object
             else if (propertyType == typeof(DateTime))
             {
                 DateTime.TryParse(val.ToString(), out var parsedValue);
-                //var parsedValue = Convert.ToDateTime(val.ToString());
                 propertyInfo.SetValue(obj, parsedValue, null);
                 return obj;
             }
@@ -312,7 +311,7 @@ namespace ShadyNagy.Utilities.Extensions.Object
                 }
                 else
                 {
-                    var parsedValue2 = Convert.ToBoolean(val);
+                    var parsedValue2 = val.ToString() == "1";
                     propertyInfo.SetValue(obj, parsedValue2, null);
                     return obj;
                 }
