@@ -14,13 +14,13 @@
     <RepositoryUrl>https://github.com/ShadyNagy/Utilities</RepositoryUrl>
     <PackageTags>extension,extensions,utilities</PackageTags>
     <PackageIcon>icon.png</PackageIcon>
-    <Version>1.0.20</Version>
+    <Version>1.0.21</Version>
     <PackageReleaseNotes>Added ToGuid Extension.</PackageReleaseNotes>
     <AssemblyName>ShadyNagy.Utilities.Extensions</AssemblyName>
     <Features>strict</Features>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Copyright>Copyright 2019 - 2020 (c) Shady Nagy. All rights reserved.</Copyright>
+    <Copyright>Copyright 2021 (c) Shady Nagy. All rights reserved.</Copyright>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Debug'">
