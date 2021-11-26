@@ -14,7 +14,7 @@
     <RepositoryUrl>https://github.com/ShadyNagy/Utilities</RepositoryUrl>
     <PackageTags>extension,extensions,utilities</PackageTags>
     <PackageIcon>icon.png</PackageIcon>
-    <Version>1.0.22</Version>
+    <Version>1.0.23</Version>
     <PackageReleaseNotes>Added ToGuid Extension.</PackageReleaseNotes>
     <AssemblyName>ShadyNagy.Utilities.Extensions</AssemblyName>
     <Features>strict</Features>

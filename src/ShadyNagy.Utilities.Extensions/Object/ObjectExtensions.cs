@@ -235,6 +235,16 @@ namespace ShadyNagy.Utilities.Extensions.Object
             return prop?.PropertyType;
         }
 
+        public static object GetPropertyNewValue<T>(this object obj)
+        {
+            if (obj == null)
+            {
+                return default(T);
+            }
+
+            return obj;
+        }
+
         public static object SetPropertyValueByName(this object obj, string propertyName, object value)
         {
             var propertyInfo = obj.GetType().GetProperty(propertyName, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
