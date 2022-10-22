@@ -14,6 +14,9 @@
     <a href="https://github.com/ShadyNagy/Utilities/blob/master/LICENSE" alt="license">
         <img src="https://img.shields.io/badge/License-MIT-blue.svg" />
     </a>
+    <a href="https://www.paypal.me/shadynagy" alt="paypal">
+        <img src="https://img.shields.io/badge/PayPal-tip%20me-green.svg?logo=paypal" />
+    </a>
 </p>
 
 
